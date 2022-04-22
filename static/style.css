@@ -1,0 +1,389 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color:black;
+}
+
+/* #########   Password Generator #######" */
+.body{
+    background-color: #F0ECE3;
+}
+
+#password-generator{
+    text-align: center;
+    background-color: #DFD3C3;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+.nav-item{
+    padding: 15px;
+}
+
+.nav-bar{
+    padding: 8px;
+    margin : 10px 5px 0px 5px;
+}
+
+
+/* F0ECE3
+DFD3C3
+C7B198
+A68DAD */
+
+.header{
+    background-color: #C7B198;
+    
+}
+
+a{
+    color:black;
+    text-decoration: none;
+}
+
+/* main */
+.main-content{
+    margin: 30px auto;
+    background-color: #F0ECE3;
+}
+
+/*-------------- footer------------ */
+#footer{
+    background-color: #C7B198;
+    /* padding:150px 0px; */
+    padding: 8px;
+    margin : 550px auto 0px;
+}
+
+.footer-basic {
+    padding:40px 0;
+    margin-bottom: 0px
+}
+
+.footer-basic ul {
+    padding:0;
+    list-style:none;
+    text-align:center;
+    flex-direction: column;
+    font-size:18px;
+    line-height:1.6;
+    margin-bottom:0;
+}
+
+.footer-basic li {
+    padding:0 10px;
+}
+
+.footer-basic ul a {
+    color:inherit;
+    text-decoration:none;
+    opacity:0.8;
+}
+
+.footer-basic ul a:hover {
+    opacity:1;
+}
+
+.footer-basic .social {
+    text-align:center;
+    padding-bottom:25px;
+}
+
+.footer-basic .social > a {
+    font-size:24px;
+    width:40px;
+    height:40px;
+    line-height:40px;
+    display:inline-block;
+    text-align:center;
+    border-radius:50%;
+    /* border:1px solid #ccc; */
+    margin:0 8px;
+    color:inherit;
+    opacity:0.75;
+}
+
+.footer-basic .social > a:hover {
+    opacity:0.9;
+}
+
+.footer-basic .copyright {
+    margin-top:15px;
+    text-align:center;
+    font-size:13px;
+    /* color:#aaa; */
+    margin-bottom:0;
+}
+
+
+.flex{
+    display:flex;
+}
+
+/* ############# global #######""
+:root{
+    --global-background-color: #171717;
+    --link-background-collor: #DA0037;
+    --global-text-color: #EDEDED;
+    --text-hover-color: #444444;
+    --gray-color: rgba(255,255,255,0.1);
+}
+
+html{
+    background-color: var(--global-background-color);
+    color: var(--global-text-color);
+}
+
+a{
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--global-text-color);
+}
+
+a:hover{
+    color: var(--text-hover-color);
+}
+
+input{
+    width: 70%;
+    margin: 10px auto;
+    padding: 5px;
+    border: none;
+}
+
+input:focus{
+    border: solid 1px var(--link-background-collor);
+}
+
+.list-inline-item{
+    display:inline;
+}
+
+/*########### header #######"*/
+/*
+header{
+    box-shadow: 0 10px 15px -3px var(--gray-color);
+}
+
+header nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 30px;
+}
+
+header nav ul{
+    list-style-type: none;
+    display: inline-flex;
+}
+
+header nav ul li{
+    margin: 5px;
+}
+
+@media screen and (max-width: 640px) {
+    header nav{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .brand{
+        margin-bottom: 30px;
+    }
+}
+
+
+/*#########   footer #######"
+footer{
+    padding:150px 0px;
+    margin-bottom: 0px;
+}
+
+.footer-basic {
+    padding:40px 0;
+    margin-bottom: 0px
+}
+
+.footer-basic ul {
+    padding:0;
+    list-style:none;
+    text-align:center;
+    flex-direction: column;
+    font-size:18px;
+    line-height:1.6;
+    margin-bottom:0;
+}
+
+.footer-basic li {
+    padding:0 10px;
+}
+
+.footer-basic ul a {
+    color:inherit;
+    text-decoration:none;
+    opacity:0.8;
+}
+
+.footer-basic ul a:hover {
+    opacity:1;
+}
+
+.footer-basic .social {
+    text-align:center;
+    padding-bottom:25px;
+}
+
+.footer-basic .social > a {
+    font-size:24px;
+    width:40px;
+    height:40px;
+    line-height:40px;
+    display:inline-block;
+    text-align:center;
+    border-radius:50%;
+    border:1px solid #ccc;
+    margin:0 8px;
+    color:inherit;
+    opacity:0.75;
+}
+
+.footer-basic .social > a:hover {
+    opacity:0.9;
+}
+
+.footer-basic .copyright {
+    margin-top:15px;
+    text-align:center;
+    font-size:13px;
+    color:#aaa;
+    margin-bottom:0;
+}
+
+
+.flex{
+    display:flex;
+}
+
+/*#########   modals #######"
+
+.modals-wrapper{
+    width: 100%;
+    height: 100%;
+    background-color: var(--global-text-color);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+
+.modal{
+    background-color: var(--global-background-color);
+    min-width: 400px;
+    min-height: 400px;
+    padding: 20px;
+}
+
+#center{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto    ;
+}
+
+#close-modal{
+    background-color: var(--link-background-collor);
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    cursor: pointer;
+    padding: 5px;
+}
+
+#login-modal, #signup-modal{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#password-modal, #add-password-modal{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.copy{
+    cursor: pointer;
+}
+
+
+/*#########   card #######"
+
+.container{
+    margin-top: 20px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    margin-bottom: 80px;
+}
+
+.card{
+    background-color: var(--text-hover-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.actions{
+    margin: 5px;
+}
+
+.actions a{
+    display: none;
+    background-color: var(--link-background-collor);
+    flex-direction: column;
+    padding: 5px;
+    align-items: center;
+}
+
+.actions:hover .action-item{
+    display: flex;
+}
+
+@media screen and (max-width: 680px) {
+    .container{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .container{
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* I added this later, didn't cover it in the tutorial
+
+.actions{
+    cursor: pointer;
+    border: solid 0.3px var(--link-background-collor);
+    padding: 5px;
+}
+
+/*Change the size of the modal in the small devices
+@media screen and (max-width: 680px) {
+    .modal{
+        min-height: 300px;
+    }
+
+    .modals-wrapper{
+        max-height: 740px;
+    }
+} */

@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+
+{% block content%}
+    <!-- password geenrator -->
+    <div id = "password-generator">
+        <h1 >Generate Your Password here</h1>
+        <a href="{% url 'generate_pwd'%}"><h2 id="th">Click here to Generate</h2>
+        <h2 id="result"></h2>
+        </a>
+        <i class="fa fa-copy" aria-hidden="true"></i>
+    </div>
+{% endblock content%}

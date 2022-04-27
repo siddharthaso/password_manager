@@ -25,8 +25,9 @@ class Profile(models.Model):
 #user_profile - one to many, passwords- one to many
 # abbrevation (short form)-> require slug
 class Tags(models.Model):
+    
     class TagsChoices(models.TextChoices):
         HOME = 'HM'
         OFFICE = 'OF'   
-
     tags_name = models.CharField(max_length=300,choices = TagsChoices.choices,default = TagsChoices.OFFICE)
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)

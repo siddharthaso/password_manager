@@ -27,7 +27,7 @@ def generate_pwd(request):
     return render(request, 'output.html')
 
 # Create your views here.
-def login(request):
+# def login(request):
     # if request.method == 'POST':
     #     form = loginForm(request.POST)
     #     if form.is_valid():
@@ -37,7 +37,7 @@ def login(request):
     #     form = loginForm()
     #     print(form)
     # return render(request, 'login.html', {'form':form})
-    pass
+    # pass
 
 # from django import forms
 # class LoginForm(forms.Form):
@@ -48,7 +48,7 @@ def login(request):
 
 # Create your views here.
 
-def signup(request):
+# def signup(request):
     # if request.method == 'POST':
     #     # print(request)
     #     form = signupForm(request.POST)
@@ -68,7 +68,7 @@ def signup(request):
     #     form = signupForm()
     #     print(form)
     # return render(request , 'sign-up.html', {'form':form})    
-    pass
+    # pass
 
 def generate_pwd(request):
     # import secrets

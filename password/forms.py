@@ -5,4 +5,4 @@ class PasswordForm(forms.ModelForm):
     # model = Passwords
     class Meta:
         model= Passwords
-        fields = '__all__'
+        fields = ['password']

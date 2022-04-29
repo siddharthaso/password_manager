@@ -14,7 +14,13 @@
         <h1>Generated password: </h1>
         <h2>{{pwd}}</h2>
 
-        <a href="{% url 'save-pwd'%}">Save Password</a>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <!-- {{ form.password.as_hidden }} -->
+            <input type="hidden" id="custId" name="pwd" value="{{pwd}}">
+            <button type ="submit">Save Password</button>
+            <!-- <a href="{% url 'save-pwd'%}">Save Password</a> -->
+        </form>
         
     </div>
 {% endblock content%}   

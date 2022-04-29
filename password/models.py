@@ -24,4 +24,4 @@ class Passwords(models.Model):
     category = models.CharField(max_length=300, choices=CategoryChoices.choices, null=True)
 
     def __str__(self):
-        return self.email
+        return self.password

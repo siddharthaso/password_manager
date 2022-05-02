@@ -6,3 +6,9 @@ class PasswordForm(forms.ModelForm):
     class Meta:
         model= Passwords
         fields = ['password']
+
+class PasswordAllFieldForm(forms.ModelForm):
+    # model = Passwords
+    class Meta:
+        model= Passwords
+        fields = '__all__'

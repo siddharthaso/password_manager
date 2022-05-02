@@ -24,11 +24,12 @@
 
     <header class="header">
         <nav class="navbar">
-            <div><a href="{% url 'home' %}"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Password Safe</a></div>
+            <div><a href="{% url 'home' %}"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Password Manager</a></div>
             <ul class="nav justify-content-end">
                 <li class="nav-item"><a href="{% url 'home' %}">Home</a></li>
 
                 {% if user.is_authenticated %}
+                    <li class="nav-item"><a href="{% url 'view-passwords' %}">Passwords</a></li>
                     <li class="nav-item"><a href="{% url 'profile' %}">Profile</a></li>
                     <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}

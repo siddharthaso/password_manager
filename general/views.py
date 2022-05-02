@@ -1,6 +1,3 @@
-import imp
-from multiprocessing import context
-from multiprocessing.spawn import import_main_path
 from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -63,12 +60,9 @@ class GeneratePassword(CreateView):
         if request.user.is_authenticated:
             mypwd = request.POST['pwd']
             myus = request.user
-            # print(mypwd)
             obj = Passwords(password = mypwd, user = myus)
             obj.save()
         else:
             return redirect('login')
-            # username = request.cleaned_data['username']
-            # us = User.objects.get(username =username )
-            # print(request.user)
+        
         return render(request, 'home.html')

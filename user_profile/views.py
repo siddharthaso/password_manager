@@ -13,7 +13,7 @@ from .models import Profile
 
 class LoginFormView(SuccessMessageMixin, LoginView):
     template_name = 'user_profile/login.html'
-    success_url = '/s/'
+    success_url = '/success_url/'
     success_message = "You were successfully logged in."
 
 class LogoutFormView(SuccessMessageMixin, LogoutView):

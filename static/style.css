@@ -6,15 +6,24 @@
 }
 
 /* #########   Password Generator #######" */
-.body{
-    background-color: #F0ECE3;
+body{
+    /* background-image: url(https://dmej8g5cpdyqd.cloudfront.net/blog/wp-content/uploads/2013/12/security.jpg); */
+    background-image: linear-gradient(rgba(196,221,255,.1),rgba(196,221,255,.8)),url(https://dmej8g5cpdyqd.cloudfront.net/blog/wp-content/uploads/2013/12/security.jpg);
+    /* linear-gradient(rgba(138, 198, 209, .5), rgba(138, 198, 209, .5)),url(cal.webp);*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #C4DDFF;
+}
+body:after{
+    opacity: .1;
 }
 
 #password-generator{
     text-align: center;
-    background-color: #DFD3C3;
+    /* background-color: #C4DDFF; */
+    background-color: #7FB5FF;
     padding-bottom: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 0px; 
 }
 .nav-item{
     padding: 15px;
@@ -26,13 +35,14 @@
 }
 
 
-/* F0ECE3
-DFD3C3
-C7B198
-A68DAD */
+/* 
+C4DDFF
+7FB5FF
+001D6E
+*/
 
 .header{
-    background-color: #C7B198;
+    background-color: #4B7BE5;
     
 }
 
@@ -43,13 +53,18 @@ a{
 
 /* main */
 .main-content{
-    margin: 30px auto;
-    background-color: #F0ECE3;
+    margin: 10% auto;
+    /* background-color: #C4DDFF; */
+    background-color: #7FB5FF;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    /* background-color: #7FB5FF; */
 }
 
 /*-------------- footer------------ */
 #footer{
-    background-color: #C7B198;
+    background-color: #4B7BE5;
     /* padding:150px 0px; */
     padding: 8px;
     margin : 550px auto 0px;

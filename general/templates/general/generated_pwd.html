@@ -18,7 +18,13 @@
             {% csrf_token %}
             <!-- {{ form.password.as_hidden }} -->
             <input type="hidden" id="custId" name="pwd" value="{{pwd}}">
-            <button type ="submit">Save Password</button>
+
+            {% if user.is_authenticated %}
+                <button type ="submit">Save Password</button>
+            {% else %}
+                To Save Password Click here to  <a href="{% url 'login'%}">Login</a>
+            {% endif %}
+
             <!-- <a href="{% url 'save-pwd'%}">Save Password</a> -->
         </form>
         

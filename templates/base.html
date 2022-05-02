@@ -29,6 +29,7 @@
                 <li class="nav-item"><a href="{% url 'home' %}">Home</a></li>
 
                 {% if user.is_authenticated %}
+                    <li class="nav-item"><a href="{% url 'profile' %}">Profile</a></li>
                     <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
                 {% else %}
                     <li class="nav-item"><a href="{% url 'login' %}">Login</a></li>
@@ -44,7 +45,8 @@
         {% endfor%}
     {% endif %}
 
-    <div class="main-content">
+    <div class="main-content col-6 justify-content-center text-center">
+        {% comment %} center-block {% endcomment %}
         {% block content%}
         {% endblock content%}
     </div>

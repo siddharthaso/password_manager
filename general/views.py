@@ -67,56 +67,8 @@ class GeneratePassword(CreateView):
             obj = Passwords(password = mypwd, user = myus)
             obj.save()
         else:
-            print("login")
+            return redirect('login')
             # username = request.cleaned_data['username']
             # us = User.objects.get(username =username )
             # print(request.user)
         return render(request, 'home.html')
-        
-
-
-
-# Create your views here.
-
-# class SavePassword(LoginRequiredMixin , CreateView):
-
-#     def post(self, request , *args, **kwargs):
-#         username = request.cleaned_data['username']
-#         us = User.objects.get(username =username )
-#         print(us)
-#         pss=Passwords(password=password, user=us) 
-#         pss.save()
-#         print("after save")
-
-
-#         return render(request, 'general/generated_pwd.html',context=context)
-
-
-
-def save_pwd(request):
-    print("save function")
-    if request.method=='POST':
-
-        username = request.cleaned_data['username']
-        us = User.objects.get(username =username )
-        print(us)
-        pss=Passwords(password=password, user=us) 
-        pss.save()
-        print("after save")
-
-    # print(username)
-    # p
-    # breakpoint()
-    # print(1)
-    # if request.method == 'POST':
-    #     print(2)
-    #     form = PasswordForm(request.POST)
-    #     print(3)
-    #     if form.is_valid():
-    #         print(4)
-    #         form.save()
-    #         return redirect('generate_pwd')
-    # print(5)
-    # p = Passwords.objects.create(user = )
-    return redirect('home')
-    # return render(request, 'password/save_password.html')#,{'form':form})

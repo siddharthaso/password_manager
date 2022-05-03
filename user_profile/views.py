@@ -1,3 +1,4 @@
+from dataclasses import field
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect, render
@@ -9,7 +10,7 @@ from django.contrib import messages
 from .forms import RegisterForm, SiteForm
 from password.forms import PasswordForm
 from django.contrib.auth.models import User
-from .models import Profile, Site
+from .models import Profile, Site, Tags
 
 
 class LoginFormView(SuccessMessageMixin, LoginView):
@@ -67,3 +68,14 @@ class CreateSiteView(CreateView):
         obj.save()
         
         return render(request, 'home.html')
+
+class TagsCreateView(CreateView):
+    model = Tags
+    template_name = "user_profile/create_tag.html"
+    fields = '__all__'
+    success_url = reverse_lazy('home')
+
+# class TagsDetailView(DetailView):
+#     model = Tags
+#     template_name = ".html"
+# )

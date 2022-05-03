@@ -2,7 +2,7 @@ import imp
 from unicodedata import category
 from django.db import models
 from django.contrib.auth.models import User
-from user_profile.models import Site
+from user_profile.models import Site, Tags
 
 # Create your models here.
 # TODO :catgories - one to one (accept NULL) ,description()
@@ -12,6 +12,7 @@ class Passwords(models.Model):
         ENTERTAINMENT = 'ENT'
         LEARNING = 'LER'
         SHOPPING = 'SHO'
+        PAYMENT = "PAY"
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -19,9 +20,11 @@ class Passwords(models.Model):
     description = models.TextField(max_length=100, null=True, blank=True)
     email = models.CharField(max_length=200)
     
-    site = models.ForeignKey(Site,on_delete=models.CASCADE, null=True)
+    site = models.ForeignKey(Site,on_delete=models.CASCADE, null=True, blank=True)
 
     category = models.CharField(max_length=300, choices=CategoryChoices.choices, null=True)
 
+    tag = models.ForeignKey(Tags, on_delete=models.CASCADE, null= True, blank =True )
+
     def __str__(self):
-        return self.password
+        return self.user +"-" +self.password

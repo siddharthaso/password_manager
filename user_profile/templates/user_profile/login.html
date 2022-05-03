@@ -10,10 +10,10 @@
         Don't have an account? <a href="{% url 'register' %}">Sign up</a>
     </form>
 </div> -->
-<div class="justify-content-center text-center" style="margin-top: 100px;">
+<div class="justify-content-center text-center" style="margin-top: 100px;margin-bottom:120px;">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 offset-md-4">
+            <div class="col-md-6 offset-md-3">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
                         <div class="card-title text-black">
@@ -24,7 +24,11 @@
                         <!-- <div class="main-content col-6 justify-content-center text-center"> -->
                             <form method="POST">
                                 {% csrf_token %}
-                                {{form | crispy}}
+                                {% comment %} {{form | crispy}} {% endcomment %}
+                                {% for field in form %}
+                                    <label  class="form-label">{{field.name}}</label>
+                                    {{field}}</br>
+                                {% endfor %}
                                 <br>
                                 <button class = "btn-primary" type="submit"> Login</button><br>
                                 Don't have an account? <a href="{% url 'register' %}">Sign up</a>

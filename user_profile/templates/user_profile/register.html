@@ -11,10 +11,10 @@
     </form>
 </div> -->
 
-<div class="justify-content-center text-center" style="margin-top: 100px;">
+<div class="justify-content-center text-center" style="margin-top: 100px;margin-bottom: 70px">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 offset-md-4">
+            <div class="col-md-6 offset-md-3">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
                         <div class="card-title text-black">
@@ -25,13 +25,11 @@
                             <form method="POST">
                                 {% csrf_token %}
                                 {% for field in form %}
-                                    <div class="flex justify-content-between">
-                                        <h5>{{field.name}}</h5> <br>
-                                        {{field}} <br>
-                                    </div>
+                                        <label  class="form-label">{{field.name}}</label>
+                                        {{field}} </br>
                                 {% endfor %}
-                                <br>
-                                <button class = "btn-primary" type="submit"> Register </button><br>
+                                </br>
+                                <button class = "btn-primary" type="submit"> Register </button></br>
                             </form>
                     </div>
                 </div>

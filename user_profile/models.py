@@ -26,11 +26,13 @@ class Site(models.Model):
 # abbrevation (short form)-> require slug
 class Tags(models.Model):
     
-    class TagsChoices(models.TextChoices):
-        HOME = 'HM'
-        OFFICE = 'OF'   
-    tags_name = models.CharField(max_length=300,choices = TagsChoices.choices,default = TagsChoices.OFFICE)
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # class TagsChoices(models.TextChoices):
+    #     HOME = 'HM'
+    #     OFFICE = 'OF'   
+    # tags_name = models.CharField(max_length=300,choices = TagsChoices.choices,default = TagsChoices.OFFICE)
+    
+    tags_name = models.CharField(max_length=300)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self) -> str:
         return self.tags_name

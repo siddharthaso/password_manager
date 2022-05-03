@@ -1,8 +1,6 @@
 {%extends 'base.html'%}
 
-
 {% block content%}
-
 <div class="justify-content-center text-center" style="margin-top: 100px;">
     <div class="container">
         <div class="row">
@@ -10,7 +8,7 @@
                 <div class="card">
                     <div class="card-header bg-primary text-white">
                         <div class="card-title text-white   ">
-                            Save Password
+                            Add Site
                         </div>
                     </div>
                     <div class="card-body">
@@ -18,13 +16,8 @@
                             {% csrf_token %}
                             
                             {% for field in form %}
-                                {% if field.name == 'email' %}
-                                    {{field.name}}:::
-                                    {{field}}</br>
-                                {% else %}
                                     {{field.name}}
                                     {{field}}</br>
-                                {% endif %}
                             {% endfor %}
                             <button class = "btn-primary" type="submit"> Save </button>
                         </form>

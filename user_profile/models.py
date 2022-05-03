@@ -18,6 +18,9 @@ class Site(models.Model):
     is_public = models.BooleanField(default=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
 
+    def __str__(self) -> str:
+        return self.site_name
+
 # TODO :personalization category, color for different tags
 #user_profile - one to many, passwords- one to many
 # abbrevation (short form)-> require slug
@@ -28,3 +31,6 @@ class Tags(models.Model):
         OFFICE = 'OF'   
     tags_name = models.CharField(max_length=300,choices = TagsChoices.choices,default = TagsChoices.OFFICE)
     # user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.tags_name

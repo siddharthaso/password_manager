@@ -1,19 +1,20 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import redirect, render
-# from .forms import loginForm
-# from .forms import signupForm
+
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
 from django.contrib import messages
-from .forms import RegisterForm
+from .forms import RegisterForm, SiteForm
 from password.forms import PasswordForm
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Site
 
 
 class LoginFormView(SuccessMessageMixin, LoginView):
     template_name = 'user_profile/login.html'
-    success_url = '/success_url/'
+    # success_url = '/success_url/'
     success_message = "You were successfully logged in."
 
 class LogoutFormView(SuccessMessageMixin, LogoutView):
@@ -45,3 +46,24 @@ def profile(request):
     profile = Profile.objects.get(user= user)
     context = {'user' : user, 'profile' : profile}
     return render(request, 'user_profile/profile.html',context = context)
+
+
+class CreateSiteView(CreateView):
+    template_name = 'create_site.html'
+    form_class = SiteForm
+    success_url = reverse_lazy('home')
+
+    def get(self, request , *args, **kwargs):
+
+        form = SiteForm(request.POST)
+        context = {'form':form}
+            
+        return render(request, 'user_profile/add_site.html',context=context)
+        
+    
+    def post(self, request, *args, **kwargs):
+        myus = request.user
+        obj = Site.objects.create(site_name =request.POST['site_name'], site_url = request.POST['site_url'], is_public = bool(request.POST['is_public']),  user = myus)
+        obj.save()
+        
+        return render(request, 'home.html')

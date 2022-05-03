@@ -1,30 +1,31 @@
 {%extends 'base.html'%}
 
 
-
 {% block content%}
-<div class="container" style="padding:30px 0px;">
-    <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-10">
-            <div class="well well-sm">
-                <div class="row">
-                    <div class="col-sm-6 col-md-4">
-                        <img src="{{ profile.profile_picture.url }}" alt="" class="img-rounded img-responsive" style="height: 168px; width:168px"/>
-                    </div>
-                    <div class="col-sm-6 col-md-8">
-                        <h4>{{ user.username }}</h4>
-                        <small style="display: block;line-height: 1.428571429;"><cite title="San Francisco, USA">
-                            {{ profile.location }}
-                            <i class="glyphicon glyphicon-map-marker"> </i></cite>
-                        </small>
-                        <p>
-                            <i class="glyphicon glyphicon-envelope"></i>{{ user.email }}<br />
-                            <i class="glyphicon glyphicon-gift"></i>{{ user.date_joined }}
-                        </p>
-                        <!-- Edit button -->
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary">
-                                Edit Profile</button>
+<div class="main-content col-6 justify-content-center text-center">
+    <div class="container" style="padding:30px 0px;">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-10">
+                <div class="well well-sm">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <img src="{{ profile.profile_picture.url }}" alt="" class="img-rounded img-responsive" style="height: 168px; width:168px"/>
+                        </div>
+                        <div class="col-sm-6 col-md-8">
+                            <h4>{{ user.username }}</h4>
+                            <small style="display: block;line-height: 1.428571429;"><cite title="San Francisco, USA">
+                                {{ profile.location }}
+                                <i class="glyphicon glyphicon-map-marker"> </i></cite>
+                            </small>
+                            <p>
+                                <i class="glyphicon glyphicon-envelope"></i>{{ user.email }}<br />
+                                <i class="glyphicon glyphicon-gift"></i>{{ user.date_joined }}
+                            </p>
+                            <!-- Edit button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary">
+                                    Edit Profile</button>
+                            </div>
                         </div>
                     </div>
                 </div>

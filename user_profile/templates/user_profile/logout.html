@@ -1,6 +1,10 @@
 {%extends 'base.html'%}
 
+
 {% block content%}
-<h1>You have been logged out.</h1>
-To login click <a href="{% url 'login' %}">Here</a>. 
+<div class="main-content col-6 justify-content-center text-center">
+    <h1>You have been logged out.</h1>
+    To login click <a href="{% url 'login' %}">Here</a>.     
+</div>
+
 {% endblock content%}

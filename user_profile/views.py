@@ -1,3 +1,4 @@
+from urllib import request
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
@@ -6,6 +7,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
+from django.views.generic import TemplateView, CreateView
 
 from .forms import RegisterForm, SiteForm
 from .models import Profile, Site, Tags
@@ -35,9 +37,35 @@ def register(request):
         form = RegisterForm()
     return render(request, 'user_profile/register.html',{'form':form})
 
+# class RegisterView(CreateView):
+#     template_name = 'user_profile/register.html'
+#     context_object_name = 'form'
+#     form_class = RegisterForm
+#     success_url = reverse_lazy('user_profile:home')
 
-def home(request):
-    return render(request, 'home.html')
+#     def form_valid(self, RegisterForm):
+#         """If the form is valid, save the associated model."""
+#         self.object = form.save()
+#         return super().form_valid(form)
+
+#     def get(self, request , *args, **kwargs):
+
+#         form = SiteForm(request.POST)
+#         context = {'form':form}
+#         return render(request, 'user_profile/add_site.html',context=context)
+    
+#     def post(self, request, *args, **kwargs):
+#         myus = request.user
+#         obj = Site.objects.create(site_name =request.POST['site_name'], site_url = request.POST['site_url'], is_public = bool(request.POST['is_public']),  user = myus)
+#         obj.save()
+        
+#         return render(request, 'home.html')
+
+
+
+class HomeView(TemplateView):
+    http_method_names = ['get']
+    template_name = 'home.html'
 
 
 @login_required(login_url='login')

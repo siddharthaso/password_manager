@@ -24,20 +24,20 @@
 
     <header class="header">
         <nav class="navbar">
-            <div><a href="{% url 'home' %}"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Password Manager</a></div>
+            <div><a href="{% url 'user_profile:home' %}"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Password Manager</a></div>
             <ul class="nav justify-content-end">
-                <li class="nav-item"><a href="{% url 'home' %}">Home</a></li>
-                <li class="nav-item"><a href="{% url 'generate_pwd' %}">Generate Password</a></li>
+                <li class="nav-item"><a href="{% url 'user_profile:home' %}">Home</a></li>
+                <li class="nav-item"><a href="{% url 'password:generate_pwd' %}">Generate Password</a></li>
 
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a href="{% url 'view_password' %}"> View Passwords</a></li>
-                    <li class="nav-item"><a href="{% url 'add_site' %}"> Add Site</a></li>
-                    <li class="nav-item"><a href="{% url 'create_tag' %}"> Add Tag</a></li>
-                    <li class="nav-item"><a href="{% url 'profile' %}">Profile</a></li>
-                    <li class="nav-item"><a href="{% url 'logout' %}">Logout</a></li>
+                    <li class="nav-item"><a href="{% url 'password:view_password' %}"> View Passwords</a></li>
+                    <li class="nav-item"><a href="{% url 'user_profile:add_site' %}"> Add Site</a></li>
+                    <li class="nav-item"><a href="{% url 'user_profile:create_tag' %}"> Add Tag</a></li>
+                    <li class="nav-item"><a href="{% url 'user_profile:profile' %}">Profile</a></li>
+                    <li class="nav-item"><a href="{% url 'user_profile:logout' %}">Logout</a></li>
                 {% else %}
-                    <li class="nav-item"><a href="{% url 'login' %}">Login</a></li>
-                    <li class="nav-item"><a href="{% url 'register' %}">SignUp</a></li>
+                    <li class="nav-item"><a href="{% url 'user_profile:login' %}">Login</a></li>
+                    <li class="nav-item"><a href="{% url 'user_profile:register' %}">SignUp</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -53,7 +53,7 @@
     {% endblock content%}
 
     <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-    <footer id="footer" class="footer-basic">
+    <footer id="footer" class="footer-basic ">
         {% comment %} fixed-bottom {% endcomment %}
         <div class="social"><a href="#"><span class="iconify" data-icon="logos:instagram-icon"></span></a><a href="#"><span class="iconify" data-icon="akar-icons:snapchat-fill"></span></a><a href="#"><span class="iconify" data-icon="ion:logo-twitter"></span></a><a href="#"><span class="iconify" data-icon="brandico:facebook-rect"></span></a></div>
         <ul class="list-inline">

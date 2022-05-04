@@ -1,23 +1,20 @@
-from urllib import request
 from django.shortcuts import render,redirect, get_object_or_404
+from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .models import Passwords
+from django.views.generic import CreateView,UpdateView, DeleteView, ListView
 from django.contrib.auth.models import User
+
+from .models import Passwords
 from .forms import PasswordForm, PasswordAllFieldForm
-from django.views.generic import CreateView,UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse, reverse_lazy
 from .forms import PasswordForm
 
-# Create your views here.
+import random
+import array
 
 class GeneratePassword(CreateView):
 
     def get(self, request , *args, **kwargs):
-        
-        import random
-        import array
 
         MAX_LEN = 12
 
@@ -37,7 +34,6 @@ class GeneratePassword(CreateView):
 
         for x in range(MAX_LEN - 4):
             temp_pass = temp_pass + random.choice(COMBINED_LIST)
-
             temp_pass_list = array.array('u', temp_pass)
             random.shuffle(temp_pass_list)
 
@@ -45,18 +41,8 @@ class GeneratePassword(CreateView):
         for x in temp_pass_list:
             password = password + x
                 
-        # if request.method == 'POST':
-        #     form = PasswordForm(request.POST)
-        #     if form.is_valid():
-        #         form.save()
-        #         return redirect('home')
-        # else:
-            
-        #     form = PasswordForm()
-
         form = PasswordForm(request.POST)
         context = { 'pwd':password, 'form':form}
-        print(password)
             
         return render(request, 'password/generate_pwd.html',context=context)
         
@@ -67,18 +53,29 @@ class GeneratePassword(CreateView):
             myus = request.user
             obj = Passwords(password = mypwd, user = myus)
             obj.save()
-        else:
-            return redirect('login')
-        
-        return render(request, 'home.html')
+            
+            return render(request, 'home.html')
+            
+        return redirect('user_profile:login')
 
 
-@login_required
-def view_password(request):
-    myuser = User.objects.get(username = request.user)
-    pwd = Passwords.objects.filter(user = myuser)
-    context = {'user' : myuser, 'passwords' : pwd}
-    return render(request, 'password/view_password.html', context= context)
+# @login_required
+# def view_password(request):
+#     myuser = User.objects.get(username = request.user)
+#     pwd = Passwords.objects.filter(user = myuser)
+#     context = {'passwords' : pwd}
+#     return render(request, 'password/view_password.html', context= context)
+
+class PasswordView(ListView):
+    model = Passwords
+    context_object_name = 'passwords'
+    
+    template_name = 'password/view_password.html'
+
+    def get_queryset(self):
+        myuser = User.objects.get(username = self.request.user)
+        queryset = Passwords.objects.filter(user = myuser) 
+        return queryset
 
 
 class EditPassword(UpdateView):
@@ -86,10 +83,7 @@ class EditPassword(UpdateView):
     form_class = PasswordAllFieldForm
     
     # success_url = '/passwords/'
-    success_url = reverse_lazy('view_password')
-    
-    # /home/siddharthasodariya/Django/password_manager/profile_pictures/edit_pwd/passwords” does not exist
-    # success_url = 'passwords'
+    success_url = reverse_lazy('password:view_password')
 
     def get_object(self):
         id_ = self.kwargs.get("id")
@@ -98,6 +92,31 @@ class EditPassword(UpdateView):
         p.save()
         return get_object_or_404(Passwords, id=id_)
 
+
+class PasswordDeleteView(DeleteView):
+    model = Passwords
+    template_name = "password/delete_password.html"
+    success_url = reverse_lazy('password:view_password')
+
+    # success_message = f'Password {Passwords.objects.get(id = self.kwargs.get("id"))} was deleted successfully.'
+    success_message = "Password was deleted successfully."
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(PasswordDeleteView, self).delete(request, *args, **kwargs)
+        
+
+class PasswordCreateView(CreateView):
+    model = Passwords
+    template_name = "password/add_pwd.html"
+    field = "__all__"
+    form_class = PasswordAllFieldForm
+    success_url = reverse_lazy('password:view_password')
+
+
+
+
+# class EditPassword(UpdateView):
     
     # def get(self, request , *args, **kwargs):   
     #     pwd = Passwords.objects.get(id = self.kwargs['id'])
@@ -116,19 +135,3 @@ class EditPassword(UpdateView):
     #     obj.save()
         
     #     return render(request, 'home.html')
-
-class PasswordDeleteView(DeleteView):
-    model = Passwords
-    template_name = "password/delete_password.html"
-    success_url = reverse_lazy('view_password')
-
-    # def get_success_url(self):
-    #     return reverse('view_password', kwargs={'id': self.kwargs.get("id")})
-    #     # kwargs={'pk': self.object.k})
-
-    # success_message = f'Password {Passwords.objects.get(id = self.kwargs.get("id"))} was deleted successfully.'
-    success_message = "Password was deleted successfully."
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request, self.success_message)
-        return super(PasswordDeleteView, self).delete(request, *args, **kwargs)

@@ -11,7 +11,7 @@
     </form>
 </div> -->
 
-<div class="justify-content-center text-center" style="margin-top: 100px;margin-bottom: 70px">
+<div class="justify-content-center text-center" style="margin-top: 100px;margin-bottom: 350px">
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3">
@@ -24,10 +24,11 @@
                     <div class="card-body">
                             <form method="POST">
                                 {% csrf_token %}
-                                {% for field in form %}
+                                {{form | crispy}}
+                                <!-- {% for field in form %}
                                         <label  class="form-label">{{field.name}}</label>
                                         {{field}} </br>
-                                {% endfor %}
+                                {% endfor %} -->
                                 </br>
                                 <button class = "btn-primary" type="submit"> Register </button></br>
                             </form>

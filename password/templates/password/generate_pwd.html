@@ -2,12 +2,12 @@
 
 
 {% block content%}
-<div class="main-content col-6 justify-content-center text-center">
+<div class="main-content col-6 justify-content-center text-center" style="margin-bottom: 300px;">
     <div id="password-generator">
         <!-- password geenrator -->
         <div id = "password-generator">
             <h1 >Generate Your Password here</h1>
-            <a href="{% url 'generate_pwd'%}"><h2 id="th">Click here to Generate</h2>
+            <a href="{% url 'password:generate_pwd'%}"><h2 id="th">Click here to Generate</h2>
             <h2 id="result"></h2>
             </a>
             <i class="fa fa-copy" aria-hidden="true"></i>
@@ -22,12 +22,10 @@
             <input type="hidden" id="custId" name="pwd" value="{{pwd}}">
 
             {% if user.is_authenticated %}
-                <button type ="submit">Save Password</button>
+                <button class="btn btn-primary" type ="submit">Save Password</button>
             {% else %}
-                To Save Password Click here to  <a href="{% url 'login'%}">Login</a>
+                To Save Password Click on <a href="{% url 'user_profile:login'%}">Login</a>
             {% endif %}
-
-            {% comment %} <!-- <a href="{% url 'save-pwd'%}">Save Password</a> --> {% endcomment %}
         </form>
         
     </div>    

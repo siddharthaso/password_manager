@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'user_profile',
     'password',
     'general',
-    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -136,5 +135,5 @@ MEDIA_URL = ''
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "user_profile:home"
+LOGOUT_REDIRECT_URL = "user_profile:home"

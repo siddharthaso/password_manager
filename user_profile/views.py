@@ -1,4 +1,4 @@
-from urllib import request
+# from urllib import request
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
@@ -61,11 +61,50 @@ def register(request):
         
 #         return render(request, 'home.html')
 
+from password.forms import PasswordLogicForm
+from password.views import GeneratePassword
+from password.utils import generate_pwd 
 
+class HomeView(CreateView):
+    # template_name = 'home.html'
+    form_class = PasswordLogicForm
+    success_url = reverse_lazy('password:generate_pwd')
 
-class HomeView(TemplateView):
-    http_method_names = ['get']
-    template_name = 'home.html'
+    def get(self, request , *args, **kwargs):
+
+        form = PasswordLogicForm(request.POST)
+        context = {'form':form}
+        return render(request, 'home.html', context = context)
+    
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        form = PasswordLogicForm(request.POST)
+        # context = {}
+        # context['length'] =  request.POST.get('length')
+        # context['upper'] =  request.POST.get('uppercase')
+        # context['lower'] =  request.POST.get('lowercase')
+        # context['number'] =  request.POST.get('numbers')
+        # context['symbol'] =  request.POST.get('symbols')
+        # context['extra'] =  request.POST.get('extra_symbols')
+        # print(context)
+        print(form.is_valid())
+        context={}
+        if form.is_valid():
+            pwd = generate_pwd(int(request.POST.get('length')), bool(request.POST.get('uppercase')),bool(request.POST.get('lowercase')),bool(request.POST.get('numbers')),bool(request.POST.get('symbols')),bool(request.POST.get('extra_symbols')))
+            print(pwd)
+        # form = PasswordLogicForm(request.POST, context = context)
+        
+        # pwd = GeneratePassword.get(request, context)
+        
+            context = { 'pwd':pwd}
+            return render(request, 'password/generate_pwd.html',context=context)
+        else:
+            form = PasswordLogicForm()
+            context = {'form':form}
+            return render(request, 'home.html', context = context)
+# class HomeView(TemplateView):
+#     http_method_names = ['get']
+#     template_name = 'home.html'
 
 
 @login_required(login_url='login')

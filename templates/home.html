@@ -5,11 +5,38 @@
 
     <!-- password geenrator -->
     <div id = "password-generator">
-        <h1 >Generate Your Password here</h1>
-        <a href="{% url 'password:generate_pwd'%}"><h2 id="th">Click here to Generate</h2>
+        <h1 > Generate Your Password Here :</h1>
+
+        <div class="justify-content-center text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <div class="card-title text-white   ">
+                                    Select Choices
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form method="POST" action="">
+                                    {% csrf_token %}
+                                    {% for field in form %}
+                                        <label  class="form-label">{{field.label}}</label>
+                                        {{field}}</br>
+                                    {% endfor %}
+                                    <button class="btn" type ="submit" >Generate Password</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="{% url 'password:generate_pwd'%}"><h2 id="th">To Generate by default Specification     Click here</h2>
         <h2 id="result"></h2>
         </a>
-        <i class="fa fa-copy" aria-hidden="true"></i>
+        <!-- <i class="fa fa-copy" aria-hidden="true"></i> -->
     </div>
 </div>
 {% endblock content%}

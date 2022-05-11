@@ -30,7 +30,7 @@
                 <li class="nav-item"><a href="{% url 'password:generate_pwd' %}">Generate Password</a></li>
 
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a href="{% url 'password:view_password' %}"> View Passwords</a></li>
+                    <li class="nav-item"><a href="{% url 'password:view_pwd' %}"> View Passwords</a></li>
                     <li class="nav-item"><a href="{% url 'user_profile:add_site' %}"> Add Site</a></li>
                     <li class="nav-item"><a href="{% url 'user_profile:create_tag' %}"> Add Tag</a></li>
                     <li class="nav-item"><a href="{% url 'user_profile:profile' %}">Profile</a></li>

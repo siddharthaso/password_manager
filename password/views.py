@@ -57,7 +57,7 @@ class EditPassword(UpdateView):
     form_class = PasswordAllFieldForm
     
     # success_url = '/passwords/'
-    success_url = reverse_lazy('password:view_password')
+    success_url = reverse_lazy('password:view_pwd')
 
     def get_object(self):
         id_ = self.kwargs.get("id")
@@ -70,7 +70,7 @@ class EditPassword(UpdateView):
 class PasswordDeleteView(DeleteView):
     model = Passwords
     template_name = "password/delete_password.html"
-    success_url = reverse_lazy('password:view_password')
+    success_url = reverse_lazy('password:view_pwd')
 
     # success_message = f'Password {Passwords.objects.get(id = self.kwargs.get("id"))} was deleted successfully.'
     success_message = "Password was deleted successfully."
@@ -85,7 +85,7 @@ class PasswordCreateView(CreateView):
     template_name = "password/add_pwd.html"
     field = "__all__"
     form_class = PasswordAllFieldForm
-    success_url = reverse_lazy('password:view_password')
+    success_url = reverse_lazy('password:view_pwd')
 
 
 

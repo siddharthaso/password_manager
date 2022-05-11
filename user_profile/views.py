@@ -72,39 +72,31 @@ class HomeView(CreateView):
 
     def get(self, request , *args, **kwargs):
 
-        form = PasswordLogicForm(request.POST)
+        form = PasswordLogicForm(request.POST or None)
         context = {'form':form}
         return render(request, 'home.html', context = context)
     
     def post(self, request, *args, **kwargs):
-        print(request.POST)
+        print("data",request.POST)
         form = PasswordLogicForm(request.POST)
-        # context = {}
-        # context['length'] =  request.POST.get('length')
-        # context['upper'] =  request.POST.get('uppercase')
-        # context['lower'] =  request.POST.get('lowercase')
-        # context['number'] =  request.POST.get('numbers')
-        # context['symbol'] =  request.POST.get('symbols')
-        # context['extra'] =  request.POST.get('extra_symbols')
-        # print(context)
-        print(form.is_valid())
+        # print(form.is_valid())
         context={}
+
         if form.is_valid():
             pwd = generate_pwd(int(request.POST.get('length')), bool(request.POST.get('uppercase')),bool(request.POST.get('lowercase')),bool(request.POST.get('numbers')),bool(request.POST.get('symbols')),bool(request.POST.get('extra_symbols')))
-            print(pwd)
-        # form = PasswordLogicForm(request.POST, context = context)
-        
-        # pwd = GeneratePassword.get(request, context)
-        
+            print(pwd)        
             context = { 'pwd':pwd}
             return render(request, 'password/generate_pwd.html',context=context)
+
         else:
-            form = PasswordLogicForm()
-            context = {'form':form}
-            return render(request, 'home.html', context = context)
-# class HomeView(TemplateView):
-#     http_method_names = ['get']
-#     template_name = 'home.html'
+            print("------------------------------------------")
+            print(form.errors)
+            er =[]
+            for field, errors in form.errors.items():
+                er.append('Errors: {}'.format(field, ','.join(errors)))
+            # form = PasswordLogicForm()
+        context = {'form':form, "errors":er}
+        return render(request, 'home.html', context = context)
 
 
 @login_required(login_url='login')
@@ -144,3 +136,11 @@ class TagsCreateView(CreateView):
 #     model = Tags
 #     template_name = ".html"
 # )
+        # context = {}
+        # context['length'] =  request.POST.get('length')
+        # context['upper'] =  request.POST.get('uppercase')
+        # context['lower'] =  request.POST.get('lowercase')
+        # context['number'] =  request.POST.get('numbers')
+        # context['symbol'] =  request.POST.get('symbols')
+        # context['extra'] =  request.POST.get('extra_symbols')
+        # print(context)

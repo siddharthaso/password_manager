@@ -4,7 +4,7 @@
 <div class="main-content col-6 justify-content-center text-center" style="margin-bottom: 450px;">
 
     <!-- password geenrator -->
-    <div id = "password-generator">
+    <div id = "password-generator">  
         <h1 > Generate Your Password Here :</h1>
 
         <div class="justify-content-center text-center">
@@ -18,6 +18,15 @@
                                 </div>
                             </div>
                             <div class="card-body">
+                                
+                                {% if form.non_field_errors %}
+                                <div class="non-field-errors">
+                                    {% for err in form.non_field_errors %}
+                                    <p class="form-error">{{ err }}</p>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                                
                                 <form method="POST" action="">
                                     {% csrf_token %}
                                     {% for field in form %}

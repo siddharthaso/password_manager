@@ -22,7 +22,8 @@
                                 {% if form.non_field_errors %}
                                 <div class="non-field-errors">
                                     {% for err in form.non_field_errors %}
-                                    <p class="form-error">{{ err }}</p>
+                                        {% comment %} <p class="form-error"></p> {% endcomment %}
+                                        <div class="alert alert-warning" role="alert">{{ err }}</div>
                                     {% endfor %}
                                 </div>
                                 {% endif %}
@@ -33,7 +34,7 @@
                                         <label  class="form-label">{{field.label}}</label>
                                         {{field}}</br>
                                     {% endfor %}
-                                    <button class="btn" type ="submit" >Generate Password</button>
+                                    <button class="btn btn-primary" type ="submit" >Generate Password</button>
                                 </form>
                             </div>
                         </div>

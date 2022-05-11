@@ -20,21 +20,16 @@ class PasswordLogicForm(forms.Form):
         # print(self.uppercase)
         cleaned_data = super(PasswordLogicForm, self).clean()
         
-#lambda map filter , .item of dict
-
-        print(cleaned_data)
-        # lst=[]
+        #lambda map filter , .item of dict
+        print(cleaned_data)        
+        s = cleaned_data['uppercase']+cleaned_data['lowercase']+cleaned_data['numbers']+cleaned_data['symbols']+cleaned_data['extra_symbols']
+        # from functools import reduce
+        # s1 = reduce(lambda a,b:a+b ,list(cleaned_data.values())[1:])
         
-        s = cleaned_data['uppercase']+cleaned_data.get('lowercase')+cleaned_data.get('numbers')+cleaned_data.get('symbols')+cleaned_data.get('extra_symbos')
-        
-        # print(s)
-        # print(cleaned_data.get('length'))
         if cleaned_data.get('length') <= 5:
-            raise ValidationError(" Minimum length 5 is Required")
-        elif(s < 3):            
-            # print('entered else')                      
-            raise ValidationError("3 needed.")
-        # return super().is_valid()
+            raise ValidationError("Minimum length 5 of Password is Required")
+        elif(s < 3):                               
+            raise ValidationError("Minimum 3 Choice is necessary to make stronger password")
 
 class PasswordForm(forms.ModelForm):
     # model = Passwords

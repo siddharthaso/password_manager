@@ -16,7 +16,7 @@ class GeneratePassword(CreateView):
         
         pwd = generate_pwd(8,True,True,True,True,False)
         form = PasswordForm(request.POST)
-        context = { 'pwd':'password', 'form':form}
+        context = { 'pwd':pwd, 'form':form} 
             
         return render(request, 'password/generate_pwd.html',context=context)
         
@@ -28,7 +28,8 @@ class GeneratePassword(CreateView):
             obj = Passwords(password = mypwd, user = myus)
             obj.save()
             
-            return render(request, 'home.html')
+            # return render(request, 'home.html')
+            return redirect('password:view_pwd')
             
         return redirect('user_profile:login')
 

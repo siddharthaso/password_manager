@@ -23,10 +23,10 @@
 
 
     <header class="header">
-        <nav class="navbar">
+        <nav class="navbar font-weight-bold" style="font-size: 1.3rem;">
             <div><a href="{% url 'user_profile:home' %}"><i class="fa fa-lock" aria-hidden="true"></i>&nbsp;Password Manager</a></div>
             <ul class="nav justify-content-end">
-                <li class="nav-item"><a href="{% url 'user_profile:home' %}">Home</a></li>
+                <li class="nav-item" ><a href="{% url 'user_profile:home' %}">Home</a></li>
                 <li class="nav-item"><a href="{% url 'password:generate_pwd' %}">Generate Password</a></li>
 
                 {% if user.is_authenticated %}
@@ -53,7 +53,7 @@
     {% endblock content%}
 
     <script src="https://code.iconify.design/2/2.2.1/iconify.min.js"></script>
-    <footer id="footer" class="footer-basic ">
+    <footer id="footer" class="footer-basic font-weight-bold">
         {% comment %} fixed-bottom {% endcomment %}
         <div class="social"><a href="#"><span class="iconify" data-icon="logos:instagram-icon"></span></a><a href="#"><span class="iconify" data-icon="akar-icons:snapchat-fill"></span></a><a href="#"><span class="iconify" data-icon="ion:logo-twitter"></span></a><a href="#"><span class="iconify" data-icon="brandico:facebook-rect"></span></a></div>
         <ul class="list-inline">

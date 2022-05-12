@@ -13,15 +13,17 @@ from .utils import generate_pwd
 class GeneratePassword(CreateView):
 
     def get(self, request , *args, **kwargs):
-        
+
         pwd = generate_pwd(8,True,True,True,True,False)
         form = PasswordForm(request.POST)
         context = { 'pwd':pwd, 'form':form} 
-            
+        # import pdb;pdb.set_trace()
+        
         return render(request, 'password/generate_pwd.html',context=context)
         
     
     def post(self, request, *args, **kwargs):
+
         if request.user.is_authenticated:
             mypwd = request.POST['pwd']
             myus = request.user

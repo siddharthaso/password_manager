@@ -15,7 +15,7 @@ class Passwords(models.Model):
 
     password = models.CharField(max_length=200, null=False)
     description = models.TextField(max_length=100, null=True, blank=True)
-    email = models.CharField(max_length=200)
+    email = models.EmailField(max_length=200)
     
     site = models.ForeignKey(Site,on_delete=models.CASCADE, null=True, blank=True, related_name = 'passwords')
 

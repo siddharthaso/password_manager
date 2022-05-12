@@ -64,6 +64,7 @@ def register(request):
 from password.forms import PasswordLogicForm
 from password.views import GeneratePassword
 from password.utils import generate_pwd 
+from .forms import PasswordForm
 
 class HomeView(CreateView):
     # template_name = 'home.html'
@@ -72,31 +73,27 @@ class HomeView(CreateView):
 
     def get(self, request , *args, **kwargs):
 
-        form = PasswordLogicForm(request.POST or None)
+        form = PasswordLogicForm()
         context = {'form':form}
         return render(request, 'home.html', context = context)
     
     def post(self, request, *args, **kwargs):
         print("data",request.POST)
         form = PasswordLogicForm(request.POST)
-        # print(form.is_valid())
         context={}
-
+        pwd=''
         if form.is_valid():
             pwd = generate_pwd(int(request.POST.get('length')), bool(request.POST.get('uppercase')),bool(request.POST.get('lowercase')),bool(request.POST.get('numbers')),bool(request.POST.get('symbols')),bool(request.POST.get('extra_symbols')))
             print(pwd)        
-            context = { 'pwd':pwd}
+            
+            form = PasswordForm(request.POST)
+            context = { 'pwd':pwd, 'form':form }
+            
+            # return render(request, 'home.html',context=context)
             return render(request, 'password/generate_pwd.html',context=context)
-
-        else:
-            print("------------------------------------------")
-            print(form.errors)
-            er =[]
-            for field, errors in form.errors.items():
-                er.append('Errors: {}'.format(field, ','.join(errors)))
-            # form = PasswordLogicForm()
-        context = {'form':form, "errors":er}
-        return render(request, 'home.html', context = context)
+            
+        context = {'form':form} #, "errors":er}
+        return render(request, 'password/generate_pwd.html', context = context)
 
 
 @login_required(login_url='login')
@@ -129,8 +126,16 @@ class CreateSiteView(CreateView):
 class TagsCreateView(CreateView):
     model = Tags
     template_name = "user_profile/create_tag.html"
-    fields = '__all__'
+    fields = ['tags_name']
     success_url = reverse_lazy('user_profile:home')
+
+    def get_success_url(self):
+        return reverse_lazy('user_profile:home')
+
+    def form_valid(self, form):
+        ob = form.save(commit=False)
+        ob.user = self.request.user
+        return super().form_valid(ob)
     
 # class TagsDetailView(DetailView):
 #     model = Tags

@@ -42,9 +42,23 @@ INSTALLED_APPS = [
     'user_profile',
     'password',
     'general',
+
+    #for Debug toolbar
+    'debug_toolbar',
+]
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
 ]
 
 MIDDLEWARE = [
+    #debug toolbar
+    # The order of MIDDLEWARE is important. You should include the Debug Toolbar middleware as early as possible in the list. However, 
+    # it must come after any other middleware that encodes the response’s content, such as GZipMiddleware.
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -139,3 +153,4 @@ LOGIN_REDIRECT_URL = "user_profile:home"
 LOGOUT_REDIRECT_URL = "user_profile:home"
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
+

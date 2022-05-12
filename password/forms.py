@@ -26,7 +26,7 @@ class PasswordLogicForm(forms.Form):
         # from functools import reduce
         # s1 = reduce(lambda a,b:a+b ,list(cleaned_data.values())[1:])
         
-        if cleaned_data.get('length') <= 5:
+        if cleaned_data.get('length') and cleaned_data.get('length') <= 5:
             raise ValidationError("Minimum length 5 of Password is Required")
         elif(s < 3):                               
             raise ValidationError("Minimum 3 Choice is necessary to make stronger password")

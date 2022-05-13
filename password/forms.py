@@ -27,23 +27,18 @@ class PasswordLogicForm(forms.Form):
         # s1 = reduce(lambda a,b:a+b ,list(cleaned_data.values())[1:])
         
         if cleaned_data.get('length') and cleaned_data.get('length') <= 5:
-            raise ValidationError("Minimum length 5 of Password is Required")
+            raise ValidationError("Minimum length 6 of Password is Required")
         elif(s < 3):                               
             raise ValidationError("Minimum 3 Choice is necessary to make stronger password")
 
-class PasswordForm(forms.ModelForm):
-    # model = Passwords
-    # Uppercase = forms.BooleanField()
-    # Lowercase = forms.BooleanField()
-    # Numbers = forms.BooleanField()
-    # Symbols = forms.BooleanField()
-    # length = forms.IntegerField()
+# class PasswordForm(forms.Form):
+#     password = forms.CharField(max_length=200, required=True)
 
-    # extra_field_count = forms.CharField(widget=forms.HiddenInput())
-    class Meta:
-        model= Passwords
-        fields = ['password']
-        # ,'Uppercase','Lowercase', 'Numbers', 'Symbols', 'length']
+# class PasswordForm(forms.ModelForm):
+#     class Meta:
+#         model= Passwords
+#         fields = ['password','user']
+#         # ,'Uppercase','Lowercase', 'Numbers', 'Symbols', 'length']
 
 class PasswordAllFieldForm(forms.ModelForm):
     # model = Passwords
@@ -51,7 +46,8 @@ class PasswordAllFieldForm(forms.ModelForm):
         model= Passwords
         fields = '__all__'
 
-# class PasswordForm(forms.ModelForm):
-#     class Meta:
-#         model = Passwords
-#         exclude = ('user',)
+class PasswordForm(forms.ModelForm):
+    class Meta:
+        model = Passwords
+        fields = ['password']
+        # exclude = ('user',)

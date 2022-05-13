@@ -19,7 +19,7 @@
         <form method="POST" action="">
             {% csrf_token %}
             <!-- {{ form.password.as_hidden }} -->
-            <input type="hidden" id="custId" name="pwd" value="{{pwd}}">
+            <input type="hidden" name="pwd" value="{{pwd}}">
 
             {% if user.is_authenticated %}
                 <button class="btn btn-primary" type ="submit">Save Password</button>

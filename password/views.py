@@ -7,7 +7,6 @@ from django.contrib.auth.models import User
 
 from .models import Passwords
 from .forms import PasswordForm, PasswordAllFieldForm
-from .forms import PasswordForm
 from .utils import generate_pwd
 
 class GeneratePassword(CreateView):
@@ -17,7 +16,6 @@ class GeneratePassword(CreateView):
         pwd = generate_pwd(8,True,True,True,True,False)
         form = PasswordForm(request.POST)
         context = { 'pwd':pwd, 'form':form} 
-        # import pdb;pdb.set_trace()
         
         return render(request, 'password/generate_pwd.html',context=context)
         

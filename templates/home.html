@@ -1,41 +1,34 @@
 {%extends 'base.html'%}
 
+
 {% block content%}
-<div class="main-content col-6 justify-content-center text-center" style="margin-bottom: 450px;">
+    {% if pwd %}
 
-    <!-- password geenrator -->
-    <div id = "password-generator">  
-        <h1 > Generate Your Password Here :</h1>
-
-        <div class="justify-content-center text-center">
+        <div class="justify-content-center text-center" style="margin-top: 100px; margin-bottom: 400px; padding: 25px;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
                         <div class="card">
                             <div class="card-header bg-primary text-white">
                                 <div class="card-title text-white   ">
-                                    Select Choices
+                                    Your Generated Password
                                 </div>
                             </div>
                             <div class="card-body">
-                                
-                                {% if form.non_field_errors %}
-                                <div class="non-field-errors">
-                                    {% for err in form.non_field_errors %}
-                                        {% comment %} <p class="form-error"></p> {% endcomment %}
-                                        <div class="alert alert-warning" role="alert">{{ err }}</div>
-                                    {% endfor %}
-                                </div>
-                                {% endif %}
-                                
-                                <form method="POST" action="">
-                                    {% csrf_token %}
-                                    {% for field in form %}
-                                        <label  class="form-label">{{field.label}}</label>
-                                        {{field}}</br>
-                                    {% endfor %}
-                                    <button class="btn btn-primary" type ="submit" >Generate Password</button>
-                                </form>
+
+                                    Generated Password::{{pwd}} &nbsp &nbsp <i class="fa fa-copy" aria-hidden="true"></i>   
+
+                                    <form method="POST" action="" id="form2">
+                                        {% csrf_token %}
+                                        <!-- {{ form.password.as_hidden }} -->
+                                        <input type="hidden" name="pwd" value="{{pwd}}">
+                                        <br>
+                                        {% if user.is_authenticated %}
+                                            <button class="btn btn-primary" type ="submit">Save Password</button>
+                                        {% else %}
+                                            To Save Password Click on <a href="{% url 'user_profile:login'%}">Login</a>
+                                        {% endif %}
+                                    </form>
                             </div>
                         </div>
                     </div>
@@ -43,10 +36,56 @@
             </div>
         </div>
 
-        <a href="{% url 'password:generate_pwd'%}"><h2 id="th">To Generate by default Specification     Click here</h2>
-        <h2 id="result"></h2>
-        </a>
-        <!-- <i class="fa fa-copy" aria-hidden="true"></i> -->
-    </div>
-</div>
-{% endblock content%}
+    {% else %}
+        <div class="main-content col-6 justify-content-center text-center" style="margin-bottom: 450px;">
+            <!-- password geenrator -->
+            <div id = "password-generator">
+
+                <h1 > Generate Your Password Here :</h1>
+                <div class="justify-content-center text-center">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 offset-md-3">
+                                <div class="card">
+                                    <div class="card-header bg-primary text-white">
+                                        <div class="card-title text-white ">
+                                            Select Choices
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        
+                                        {% if form1.non_field_errors %}
+                                        <div class="non-field-errors">
+                                            {% for err in form1.non_field_errors %}
+                                                <div class="alert alert-warning" role="alert">{{ err }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                        
+        
+                                        <form method="POST" action="" id="form1">
+
+                                            {% csrf_token %}
+                                            {% for field in form1 %}
+                                                {% if field.label != 'Form1' %}
+                                                    <label  class="form-label">{{field.label}}</label>
+                                                {% endif %}
+                                                {{field}}</br>
+                                            {% endfor %}
+                                            <button class="btn btn-primary" type ="submit" >Generate Password</button>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% comment %} <a href="{% url 'password:generate_pwd'%}"><h2 id="th">To Generate by default Specification     Click here</h2> {% endcomment %}
+                <h2 id="result"></h2>
+                </a>
+                <!-- <i class="fa fa-copy" aria-hidden="true"></i> -->
+            </div>
+        </div>
+    {% endif %}
+{% endblock content%}  

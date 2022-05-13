@@ -1,11 +1,10 @@
-from email.policy import default
-from lib2to3.pygram import Symbols
 from django import forms
 from .models import Passwords
 from django.core.exceptions import ValidationError
-from django.core import validators
+# from django.core import validators
 
 class PasswordLogicForm(forms.Form):
+    form1 = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
     length = forms.IntegerField(label='Length of the Password', required=False) #validators=[validators.MaxLengthValidator(5)]
     uppercase = forms.BooleanField(label='Include Uppercase ( e.g. ABCDEFGH )', required=False)
@@ -14,26 +13,30 @@ class PasswordLogicForm(forms.Form):
     symbols = forms.BooleanField(label='Include Symbols ( e.g. @#$% )', required=False)
     extra_symbols = forms.BooleanField(label='Include Extra Symbols [ e.g. =:?./|~>*()< ]', required=False)
 
-
     def clean(self):
-        print("called")
-        # print(self.uppercase)
         cleaned_data = super(PasswordLogicForm, self).clean()
         
-        #lambda map filter , .item of dict
-        print(cleaned_data)        
+        d = dict(cleaned_data)
+        leng = d.pop('length') or 0
+
         s = cleaned_data['uppercase']+cleaned_data['lowercase']+cleaned_data['numbers']+cleaned_data['symbols']+cleaned_data['extra_symbols']
-        # from functools import reduce
-        # s1 = reduce(lambda a,b:a+b ,list(cleaned_data.values())[1:])
         
-        if cleaned_data.get('length') and cleaned_data.get('length') <= 5:
-            raise ValidationError("Minimum length 6 of Password is Required")
-        elif(s < 3):                               
-            raise ValidationError("Minimum 3 Choice is necessary to make stronger password")
+        from functools import reduce
+        s1 = reduce(lambda a,b:a+b ,list(cleaned_data.values())[2:])
+
+        if leng:
+            if leng <= 5 and s < 3:
+                raise ValidationError("Minimum Length 6 and Choice 3 is Required")
+            elif leng <= 5:
+                raise ValidationError("Minimum Length 6 of Password is Required")
+            elif(s < 3):                               
+                raise ValidationError("Minimum 3 Choice is Necessary to make Stronger Password")
+        else:
+            raise ValidationError("Length is required")
+
 
 # class PasswordForm(forms.Form):
 #     password = forms.CharField(max_length=200, required=True)
-
 # class PasswordForm(forms.ModelForm):
 #     class Meta:
 #         model= Passwords
@@ -47,6 +50,7 @@ class PasswordAllFieldForm(forms.ModelForm):
         fields = '__all__'
 
 class PasswordForm(forms.ModelForm):
+    form2 = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     class Meta:
         model = Passwords
         fields = ['password']

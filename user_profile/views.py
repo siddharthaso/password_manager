@@ -111,7 +111,6 @@ from password.models import Passwords
 
 
 class HomeView(CreateView):
-    # template_name = 'home.html'
     form_class = PasswordLogicForm
     success_url = reverse_lazy('password:generate_pwd')
     form1 = PasswordLogicForm()
@@ -130,26 +129,25 @@ class HomeView(CreateView):
             form2 = PasswordForm(request.POST)
 
             if form1.is_valid():
-
                 pwd = generate_pwd(int(request.POST.get('length')), bool(request.POST.get('uppercase')),bool(request.POST.get('lowercase')),bool(request.POST.get('numbers')),bool(request.POST.get('symbols')),bool(request.POST.get('extra_symbols')))
-                # print(pwd)        
-                # form = PasswordForm(request.POST)
                 context = { 'pwd':pwd}
                 return render(request, 'home.html',context=context)
 
             context = context = {'form1':form1, 'form2': form2 }
             return render(request, 'home.html',context=context)
 
-        else:
-            # print("in form 2")
+        elif 'form2' in request.POST:
+
             if request.user.is_authenticated:
                 mypwd = request.POST['pwd']
                 myus = request.user
                 obj = Passwords(password = mypwd, user = myus)
                 obj.save()
-                # return render(request, 'home.html')
                 return redirect('password:view_pwd')
+
             return redirect('user_profile:login')
+        
+        return redirect('user_profile:home')
 
 @login_required(login_url='login')
 def profile(request):

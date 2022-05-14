@@ -1,10 +1,9 @@
 from django import forms
 from .models import Passwords
 from django.core.exceptions import ValidationError
-# from django.core import validators
+from user_profile.models import Tags, Site
 
 class PasswordLogicForm(forms.Form):
-    form1 = forms.BooleanField(widget=forms.HiddenInput, initial=True)
 
     length = forms.IntegerField(label='Length of the Password', required=False) #validators=[validators.MaxLengthValidator(5)]
     uppercase = forms.BooleanField(label='Include Uppercase ( e.g. ABCDEFGH )', required=False)
@@ -34,24 +33,43 @@ class PasswordLogicForm(forms.Form):
         else:
             raise ValidationError("Length is required")
 
-
-# class PasswordForm(forms.Form):
-#     password = forms.CharField(max_length=200, required=True)
-# class PasswordForm(forms.ModelForm):
+# class PasswordAllFieldForm(forms.ModelForm):
+#     # model = Passwords
 #     class Meta:
 #         model= Passwords
-#         fields = ['password','user']
-#         # ,'Uppercase','Lowercase', 'Numbers', 'Symbols', 'length']
+#         fields = '__all__'
 
-class PasswordAllFieldForm(forms.ModelForm):
-    # model = Passwords
-    class Meta:
-        model= Passwords
-        fields = '__all__'
+#     def __init__(self, *args, **kwargs):
+#         self.user = kwargs.pop('user',None)
+#         super(PasswordAllFieldForm, self).__init__(*args, **kwargs)
+
+#         if self.instance:
+#             self.fields['tag'].queryset = Tags.objects.filter(user=self.user)
+#             self.fields['site'].queryset = Site.objects.filter(user=self.user)
 
 class PasswordForm(forms.ModelForm):
-    form2 = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     class Meta:
         model = Passwords
         fields = ['password']
         # exclude = ('user',)
+
+class PasswordEditForm(forms.ModelForm): 
+
+    class Meta:
+        model= Passwords
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user',None)
+        super(PasswordEditForm, self).__init__(*args, **kwargs)
+
+        if self.instance:
+            self.fields['tag'].queryset = Tags.objects.filter(user=self.user)
+            self.fields['site'].queryset = Site.objects.filter(user=self.user)
+
+    # def __init__(self, *args, **kwargs):
+    #     super(PasswordEditForm, self).__init__(*args, **kwargs)
+
+    #     if self.instance:
+    #         self.fields['tag'].queryset = Tags.objects.filter(user=self.instance.user)
+    #         self.fields['site'].queryset = Site.objects.filter(user=self.instance.user)

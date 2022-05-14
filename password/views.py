@@ -6,7 +6,7 @@ from django.views.generic import CreateView,UpdateView, DeleteView, ListView
 from django.contrib.auth.models import User
 
 from .models import Passwords
-from .forms import PasswordForm, PasswordAllFieldForm
+from .forms import PasswordForm, PasswordEditForm #PasswordAllFieldForm,
 from .utils import generate_pwd
 
 class GeneratePassword(CreateView):
@@ -15,14 +15,14 @@ class GeneratePassword(CreateView):
 
         pwd = generate_pwd(8,True,True,True,True,False)
         form = PasswordForm(request.POST)
-        context = { 'pwd':pwd, 'form':form} 
+        context = { 'pwd':pwd ,"check":" "} 
         
-        return render(request, 'password/generate_pwd.html',context=context)
+        return render(request, 'home.html',context=context)
         
     
     def post(self, request, *args, **kwargs):
-
-        if request.user.is_authenticated:
+        print("this callledddd")
+        if request.user.is_authenticated:   
             mypwd = request.POST['pwd']
             myus = request.user
             obj = Passwords(password = mypwd, user = myus)
@@ -53,18 +53,24 @@ class PasswordView(ListView):
         return queryset
 
 
+
 class EditPassword(UpdateView):
     template_name = 'password/edit_password.html'
-    form_class = PasswordAllFieldForm
-    
-    # success_url = '/passwords/'
+    # form_class = PasswordAllFieldForm
+    form_class = PasswordEditForm
     success_url = reverse_lazy('password:view_pwd')
+
+    # def get(self, request, *args, **kwargs):
+    #     self.object = self.get_object()
+    #     self.object.email = self.request.user.email
+    #     return super().get(request, *args, **kwargs)
 
     def get_object(self):
         id_ = self.kwargs.get("id")
         p = Passwords.objects.get(id = id_)
         p.email = self.request.user.email
         p.save()
+
         return get_object_or_404(Passwords, id=id_)
 
 
@@ -85,7 +91,7 @@ class PasswordCreateView(CreateView):
     model = Passwords
     template_name = "password/add_pwd.html"
     field = "__all__"
-    form_class = PasswordAllFieldForm
+    form_class = PasswordEditForm
     success_url = reverse_lazy('password:view_pwd')
 
 

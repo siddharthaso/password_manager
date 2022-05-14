@@ -7,19 +7,19 @@
         <!-- password geenrator -->
         <div id = "password-generator">
             <h1 >Generate Your Password here</h1>
-            <a href="{% url 'password:generate_pwd'%}"><h2 id="th">Click here to Generate</h2>
-            <h2 id="result"></h2>
-            </a>
-            <i class="fa fa-copy" aria-hidden="true"></i>
+            <a href="{% url 'password:generate_pwd'%}"><h2 id="th">Click here to Generate</h2></a>
         </div>
         
         <h1>Generated password: </h1>
-        <h2>{{pwd}}</h2>
+        <h2>{{pwd}} &nbsp &nbsp <i class="fa fa-copy" aria-hidden="true"></i></h2>
+        <br>
+        Generated Password: &nbsp {{pwd}} &nbsp &nbsp <i class="fa fa-copy" aria-hidden="true"></i>
 
         <form method="POST" action="">
             {% csrf_token %}
             <!-- {{ form.password.as_hidden }} -->
             <input type="hidden" name="pwd" value="{{pwd}}">
+            <br>
 
             {% if user.is_authenticated %}
                 <button class="btn btn-primary" type ="submit">Save Password</button>

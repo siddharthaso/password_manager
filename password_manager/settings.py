@@ -154,3 +154,8 @@ LOGOUT_REDIRECT_URL = "user_profile:home"
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
 
+def show_toolbar(request):
+    return True
+DEBUG_TOOLBAR_CONFIG = {
+    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
+}

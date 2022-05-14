@@ -10,13 +10,13 @@
                     <div class="col-md-6 offset-md-3">
                         <div class="card">
                             <div class="card-header bg-primary text-white">
-                                <div class="card-title text-white   ">
+                                <div class="card-title text-white h3">
                                     Your Generated Password
                                 </div>
                             </div>
-                            <div class="card-body">
+                            <div class="card-body h4">
 
-                                    Generated Password::{{pwd}} &nbsp &nbsp <i class="fa fa-copy" aria-hidden="true"></i>   
+                                    Generated Password: &nbsp {{pwd}} &nbsp &nbsp <i class="fa fa-copy" aria-hidden="true"></i>   
 
                                     <form method="POST" action="" id="form2">
                                         {% csrf_token %}
@@ -24,7 +24,7 @@
                                         <input type="hidden" name="pwd" value="{{pwd}}">
                                         <br>
                                         {% if user.is_authenticated %}
-                                            <button class="btn btn-primary" type ="submit">Save Password</button>
+                                            <button class="btn btn-primary" name="form2" type ="submit">Save Password</button>
                                         {% else %}
                                             To Save Password Click on <a href="{% url 'user_profile:login'%}">Login</a>
                                         {% endif %}
@@ -48,11 +48,11 @@
                             <div class="col-md-6 offset-md-3">
                                 <div class="card">
                                     <div class="card-header bg-primary text-white">
-                                        <div class="card-title text-white ">
+                                        <div class="card-title text-white h4">
                                             Select Choices
                                         </div>
                                     </div>
-                                    <div class="card-body">
+                                    <div class="card-body h5">
                                         
                                         {% if form1.non_field_errors %}
                                         <div class="non-field-errors">
@@ -72,7 +72,7 @@
                                                 {% endif %}
                                                 {{field}}</br>
                                             {% endfor %}
-                                            <button class="btn btn-primary" type ="submit" >Generate Password</button>
+                                            <button class="btn btn-primary" name="form1" type ="submit" >Generate Password</button>
 
                                         </form>
                                     </div>

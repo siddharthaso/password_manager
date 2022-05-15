@@ -33,19 +33,18 @@ class PasswordLogicForm(forms.Form):
         else:
             raise ValidationError("Length is required")
 
-# class PasswordAllFieldForm(forms.ModelForm):
-#     # model = Passwords
-#     class Meta:
-#         model= Passwords
-#         fields = '__all__'
+class PasswordAllFieldForm(forms.ModelForm):
+    class Meta:
+        model= Passwords
+        fields = '__all__'
 
-#     def __init__(self, *args, **kwargs):
-#         self.user = kwargs.pop('user',None)
-#         super(PasswordAllFieldForm, self).__init__(*args, **kwargs)
+    def __init__(self, *args, user_id=None, **kwargs):
+        # self.user = kwargs.pop('user',None)
+        super(PasswordAllFieldForm, self).__init__(*args, **kwargs)
 
-#         if self.instance:
-#             self.fields['tag'].queryset = Tags.objects.filter(user=self.user)
-#             self.fields['site'].queryset = Site.objects.filter(user=self.user)
+        if self.instance:
+            self.fields['tag'].queryset = Tags.objects.filter(user=user_id)
+            self.fields['site'].queryset = Site.objects.filter(user=user_id)
 
 class PasswordForm(forms.ModelForm):
     class Meta:
@@ -59,17 +58,18 @@ class PasswordEditForm(forms.ModelForm):
         model= Passwords
         fields = '__all__'
 
+
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user',None)
         super(PasswordEditForm, self).__init__(*args, **kwargs)
 
         if self.instance:
-            self.fields['tag'].queryset = Tags.objects.filter(user=self.user)
-            self.fields['site'].queryset = Site.objects.filter(user=self.user)
-
+            self.fields['tag'].queryset = Tags.objects.filter(user=self.instance.user)
+            self.fields['site'].queryset = Site.objects.filter(user=self.instance.user)
+    
     # def __init__(self, *args, **kwargs):
+    #     self.user = kwargs.pop('user',None)
     #     super(PasswordEditForm, self).__init__(*args, **kwargs)
 
     #     if self.instance:
-    #         self.fields['tag'].queryset = Tags.objects.filter(user=self.instance.user)
-    #         self.fields['site'].queryset = Site.objects.filter(user=self.instance.user)
+    #         self.fields['tag'].queryset = Tags.objects.filter(user=self.user)
+    #         self.fields['site'].queryset = Site.objects.filter(user=self.user)

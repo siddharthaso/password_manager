@@ -17,11 +17,11 @@ class Passwords(models.Model):
     description = models.TextField(max_length=100, null=True, blank=True)
     email = models.EmailField(max_length=200)
     
-    site = models.ForeignKey(Site,on_delete=models.CASCADE, null=True, blank=True, related_name = 'passwords')
+    site = models.ForeignKey(Site,on_delete=models.SET_NULL, null=True, blank=True, related_name = 'passwords')
 
     category = models.CharField(max_length=300, choices=CategoryChoices.choices, null=True, blank=True)
 
-    tag = models.ForeignKey(Tags, on_delete=models.CASCADE, null= True, blank =True, related_name = 'passwords')
+    tag = models.ForeignKey(Tags, on_delete=models.SET_NULL, null= True, blank =True, related_name = 'passwords')
 
     def __str__(self):
         return self.password

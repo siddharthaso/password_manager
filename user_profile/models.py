@@ -16,11 +16,14 @@ class Site(models.Model):
 
     site_name = models.CharField(max_length=300)
     site_url = models.CharField(max_length=300, null=True, blank=True)
-    is_public = models.BooleanField(default=True)
+    is_private = models.BooleanField(default=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name = 'site')
 
     def __str__(self) -> str:
         return self.site_name
+    
+    # class Meta:
+    #     unique_together = ('id', 'site_name',)
 
 
 # TODO :color for different tags , passwords- one to many, abbrevation (short form)-> require slug

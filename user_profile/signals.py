@@ -6,6 +6,20 @@ from django.dispatch import receiver
 from .models import Profile
 from password.models import Passwords
 from django.core.mail import send_mail
+from django.conf import settings
+
+# import smtplib, ssl
+# port = 465  # For SSL
+# password = input("Type your password and press enter: ")
+
+# # Create a secure SSL context
+# context = ssl.create_default_context()
+
+# with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+#     server.login("my@gmail.com", password)
+    # TODO: Send email here
+
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -13,17 +27,15 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.get_or_create(user=instance)
         print(kwargs)
 
-        send_mail(
-            'Subject here',
-            'Here is the message.',
-            'tracy.rippin29@gmail.com',
-            [instance.email],
-            fail_silently=False,
-            auth_user= 'tracy.rippin29@gmail.com',
-            auth_password='@#$123sddd'
-        )
+        subject = 'Congratulation on sign up'
+        # import pdb; pdb.set_trace()
+        # user
+        message = f'Hi {instance.username}, thank you for Using our Website.'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [instance.email,]
+        send_mail(subject, message, email_from, recipient_list)
 
-@receiver(post_save, sender=User)
+@receiver(post_save, sender=User)   
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save() 
 

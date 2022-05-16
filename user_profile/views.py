@@ -71,11 +71,14 @@ def profile(request):
     return render(request, 'user_profile/profile.html',context = context)
 
 
-class CreateSiteView(LoginRequiredMixin, CreateView):
+class CreateSiteView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'create_site.html'
     form_class = SiteForm
     login_url = 'user_profile:login'
     success_url = reverse_lazy('user_profile:home')
+
+    def get_success_message(self, cleaned_data):
+        return "Site Created Successfully!"
 
     def get(self, request , *args, **kwargs):
         form = SiteForm(request.POST)
@@ -95,6 +98,9 @@ class TagsCreateView(LoginRequiredMixin, CreateView):
     fields = ['tags_name']
     login_url = 'user_profile:login'
     success_url = reverse_lazy('user_profile:home')
+
+    # def get_success_message(self, cleaned_data):
+    #     return "Tag Created Successfully!"
 
     def get_success_url(self):
         return reverse_lazy('user_profile:home')

@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import CreateView,UpdateView, DeleteView, ListView
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 
 from .models import Passwords
 from .forms import PasswordForm, PasswordEditForm, PasswordAllFieldForm
@@ -60,7 +61,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 @method_decorator(login_required(redirect_field_name='next', login_url=reverse_lazy('user_profile:login')), name='dispatch')
-class EditPassword(UpdateView):
+class EditPassword(SuccessMessageMixin, UpdateView):
     template_name = 'password/edit_password.html'
     # form_class = PasswordAllFieldForm
     form_class = PasswordEditForm
@@ -70,6 +71,9 @@ class EditPassword(UpdateView):
     #     self.object = self.get_object()
     #     self.object.email = self.request.user.email
     #     return super().get(request, *args, **kwargs)
+
+    def get_success_message(self, cleaned_data):
+        return "Password is Edited successfully."
 
     def get_object(self):
         id_ = self.kwargs.get("id")
@@ -81,27 +85,32 @@ class EditPassword(UpdateView):
         return get_object_or_404(Passwords, id=id_)
 
 
-class PasswordDeleteView(LoginRequiredMixin, DeleteView):
+
+class PasswordDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     model = Passwords
     template_name = "password/delete_password.html"
     success_url = reverse_lazy('password:view_pwd')
     login_url = 'user_profile:login'
     
-    # success_message = f'Password {} is deleted successfully.'
-    success_message = "Password was deleted successfully."
+    def get_success_message(self, cleaned_data):
+        return "Password is deleted successfully."
 
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request, self.success_message)
-        return super(PasswordDeleteView, self).delete(request, *args, **kwargs)
+    # def delete(self, request, *args, **kwargs):
+    #     messages.success(self.request, self.success_message)
+    #     return super(PasswordDeleteView, self).delete(request, *args, **kwargs)
         
 
-class PasswordCreateView(LoginRequiredMixin, CreateView):
+
+class PasswordCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Passwords
     template_name = "password/add_pwd.html"
     field = "__all__"
     form_class = PasswordAllFieldForm
     login_url = 'user_profile:login'
     success_url = reverse_lazy('password:view_pwd')
+
+    def get_success_message(self, cleaned_data):
+        return "Password Created Successfully."
 
     def get_form_kwargs(self, *args, **kwargs):
         kwargs = super(PasswordCreateView, self).get_form_kwargs()

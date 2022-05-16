@@ -26,7 +26,7 @@ class Site(models.Model):
     #     unique_together = ('id', 'site_name',)
 
 
-# TODO :color for different tags , passwords- one to many, abbrevation (short form)-> require slug
+# TODO :color for different tags ,abbrevation (short form)-> require slug
 class Tags(models.Model):
     
     tags_name = models.CharField(max_length=300)

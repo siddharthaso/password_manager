@@ -34,23 +34,3 @@
     </div>
 </div>
 {% endblock content%}
-
-<!-- body{padding-top:30px;} -->
-
-<!-- .glyphicon { margin-bottom: 10px;margin-right: 10px;}
-style="margin-bottom: 10px;margin-right: 10px;"
-small {
-display: block;
-line-height: 1.428571429;
-color: #999;
-} -->
-
-{% comment %} {% for x in data %} {% endcomment %}
-
-<h1>Username : {{ user.username }}</h1>
-<h1>Email addresss : {{ user.email }}</h1>
-<h1>Locations : {{ profile.location }}</h1>
-{{ profile.profile_picture.image.url }}
-<h1>Profile picture : </h1><img src="{{ profile.profile_picture.image.url }}">
-
-{% comment %} {% endfor %} {% endcomment %}

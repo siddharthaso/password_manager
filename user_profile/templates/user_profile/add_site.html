@@ -16,7 +16,7 @@
                             {% csrf_token %}
                             
                             {% for field in form %}
-                                <label  class="form-label">{{field.name}}</label>       
+                                <label  class="form-label">{{field.name | capfirst}}</label>       
                                 {{field}}</br>
                             {% endfor %}
                             <button class = "btn-primary" type="submit"> Save </button>

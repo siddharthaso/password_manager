@@ -1,8 +1,9 @@
 from django import forms
-from .models import Passwords
 from django.core.exceptions import ValidationError
 from user_profile.models import Tags, Site
+from .models import Passwords
 
+#For Home page password creation form and its validation
 class PasswordLogicForm(forms.Form):
 
     length = forms.IntegerField(label='Length of the Password', required=False) #validators=[validators.MaxLengthValidator(5)]
@@ -17,11 +18,11 @@ class PasswordLogicForm(forms.Form):
         
         d = dict(cleaned_data)
         leng = d.pop('length') or 0
+        s = sum(d.values())
 
-        s = cleaned_data['uppercase']+cleaned_data['lowercase']+cleaned_data['numbers']+cleaned_data['symbols']+cleaned_data['extra_symbols']
-        
-        from functools import reduce
-        s1 = reduce(lambda a,b:a+b ,list(cleaned_data.values())[2:])
+        # s = cleaned_data['uppercase']+cleaned_data['lowercase']+cleaned_data['numbers']+cleaned_data['symbols']+cleaned_data['extra_symbols']
+        # from functools import reduce
+        # s1 = reduce(lambda a,b:a+b ,list(cleaned_data.values())[2:])
 
         if leng:
             if leng <= 5 and s < 3:
@@ -33,6 +34,7 @@ class PasswordLogicForm(forms.Form):
         else:
             raise ValidationError("Length is required")
 
+#Form for Creating Password Manually
 class PasswordAllFieldForm(forms.ModelForm):
     class Meta:
         model= Passwords
@@ -46,18 +48,19 @@ class PasswordAllFieldForm(forms.ModelForm):
             self.fields['tag'].queryset = Tags.objects.filter(user=user_id)
             self.fields['site'].queryset = Site.objects.filter(user=user_id)
 
+#Form for storing Only password after generating it
 class PasswordForm(forms.ModelForm):
     class Meta:
         model = Passwords
         fields = ['password']
         # exclude = ('user',)
 
+#Form for Editing existing password of particular user
 class PasswordEditForm(forms.ModelForm): 
 
     class Meta:
         model= Passwords
         fields = '__all__'
-
 
     def __init__(self, *args, **kwargs):
         super(PasswordEditForm, self).__init__(*args, **kwargs)

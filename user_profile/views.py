@@ -2,18 +2,19 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
 from django.views.generic import CreateView
-
-from .forms import RegisterForm, SiteForm
-from .models import Profile, Site, Tags
 
 from password.forms import PasswordLogicForm
 from password.utils import generate_pwd
 from password.forms import PasswordForm
 from password.models import Passwords
+
+from .forms import RegisterForm, SiteForm
+from .models import Profile, Site, Tags
+
 
 class RegisterView(SuccessMessageMixin,CreateView):
     form_class =  RegisterForm
@@ -44,7 +45,7 @@ class HomeView(CreateView):
 
             if form1.is_valid():
                 pwd = generate_pwd(int(request.POST.get('length')), bool(request.POST.get('uppercase')),bool(request.POST.get('lowercase')),bool(request.POST.get('numbers')),bool(request.POST.get('symbols')),bool(request.POST.get('extra_symbols')))
-                context = { 'pwd':pwd}
+                context = {'pwd':pwd}
                 return render(request, 'home.html',context=context)
 
             context = context = {'form1':form1, 'form2': form2 }
@@ -63,7 +64,8 @@ class HomeView(CreateView):
         
         return redirect('user_profile:home')
 
-@login_required(login_url='login')
+#view user profile
+@login_required(login_url='user_profile:login')
 def profile(request):
     user = User.objects.get(username = request.user)
     profile = Profile.objects.get(user= user)
@@ -71,14 +73,12 @@ def profile(request):
     return render(request, 'user_profile/profile.html',context = context)
 
 
-class CreateSiteView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CreateSiteView(LoginRequiredMixin, CreateView):
     template_name = 'create_site.html'
     form_class = SiteForm
     login_url = 'user_profile:login'
     success_url = reverse_lazy('user_profile:home')
-
-    def get_success_message(self, cleaned_data):
-        return "Site Created Successfully!"
+    success_message = "Site Created Successfully!"
 
     def get(self, request , *args, **kwargs):
         form = SiteForm(request.POST)
@@ -87,9 +87,9 @@ class CreateSiteView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
     def post(self, request, *args, **kwargs):
         myus = request.user
-        # import pdb; pdb.set_trace()
         obj = Site.objects.create(site_name =request.POST['site_name'], site_url = request.POST['site_url'], is_private = bool(request.POST.get('is_public',None)),  user = myus)
         obj.save()
+        messages.success(self.request, self.success_message)
         return redirect('user_profile:home')
 
 class TagsCreateView(LoginRequiredMixin, CreateView):
@@ -98,18 +98,13 @@ class TagsCreateView(LoginRequiredMixin, CreateView):
     fields = ['tags_name']
     login_url = 'user_profile:login'
     success_url = reverse_lazy('user_profile:home')
-
-    # def get_success_message(self, cleaned_data):
-    #     return "Tag Created Successfully!"
+    success_message = "Tag Created Successfully!"
 
     def get_success_url(self):
+        messages.success(self.request, self.success_message)
         return reverse_lazy('user_profile:home')
 
     def form_valid(self, form):
         ob = form.save(commit=False)
         ob.user = self.request.user
         return super().form_valid(ob)
-
-# class TagsDetailView(DetailView):
-#     model = Tags
-#     template_name = ".html"

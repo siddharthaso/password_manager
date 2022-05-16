@@ -8,29 +8,12 @@ from password.models import Passwords
 from django.core.mail import send_mail
 from django.conf import settings
 
-# import smtplib, ssl
-# port = 465  # For SSL
-# password = input("Type your password and press enter: ")
-
-# # Create a secure SSL context
-# context = ssl.create_default_context()
-
-# with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-#     server.login("my@gmail.com", password)
-    # TODO: Send email here
-
-
-
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.get_or_create(user=instance)
-        print(kwargs)
-
-        subject = 'Congratulation on sign up'
-        # import pdb; pdb.set_trace()
-        # user
-        message = f'Hi {instance.username}, thank you for Using our Website.'
+        subject = 'Welecome to Password Manager'
+        message = f'Hi {instance.username}, thank you for registering in Password manager.'
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [instance.email,]
         send_mail(subject, message, email_from, recipient_list)
@@ -38,12 +21,6 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)   
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save() 
-
-# @receiver(post_save, sender = Passwords)
-# def save_email_address(sender, instnace, created, **kwargs):
-#         pwd = Passwords.objects.get(instnace=instnace)
-#         print(pwd)
-#         # instnace.save()
 
 @receiver(user_logged_in)
 def on_login(sender, user, request, **kwargs):

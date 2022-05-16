@@ -1,3 +1,5 @@
+from urllib import request
+from django.http import HttpResponse
 from django.shortcuts import render,redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
@@ -10,6 +12,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .models import Passwords
 from .forms import PasswordForm, PasswordEditForm, PasswordAllFieldForm
 from .utils import generate_pwd
+from django.http import Http404
 
 class GeneratePassword(CreateView):
 
@@ -53,7 +56,11 @@ class PasswordView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         myuser = User.objects.get(username = self.request.user)
-        queryset = Passwords.objects.filter(user = myuser) 
+        # import pdb; pdb.set_trace()
+        if self.kwargs.get('tag',None):
+            queryset = Passwords.objects.filter(user = myuser) .order_by('tag_id')
+        else:
+            queryset = Passwords.objects.filter(user = myuser) 
         return queryset
 
 
@@ -81,9 +88,10 @@ class EditPassword(SuccessMessageMixin, UpdateView):
         if not p.email:
             p.email = self.request.user.email
             p.save()
-
-        return get_object_or_404(Passwords, id=id_)
-
+        if p.user == self.request.user:
+            return get_object_or_404(Passwords, id=id_ )
+        else:
+            raise Http404("It seems you are talented to person to come this far, but you can't view Unauthorised Detail. Sorry, Apply for Simform Solutions.")
 
 
 class PasswordDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -94,6 +102,14 @@ class PasswordDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     
     def get_success_message(self, cleaned_data):
         return "Password is deleted successfully."
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+
+        if self.object.user == request.user:
+            return self.render_to_response(context)
+        raise Http404("It seems you are talented to person to come this far, but you can't Delete Unauthorised Detail. Sorry, Apply for Simform Solutions.")
 
     # def delete(self, request, *args, **kwargs):
     #     messages.success(self.request, self.success_message)

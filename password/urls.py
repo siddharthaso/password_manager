@@ -8,6 +8,7 @@ urlpatterns = [
     
     # path('passwords/', views.view_password, name="view_pwd"),
     path('passwords/', views.PasswordView.as_view(), name="view_pwd"),
+    path('view_sorted_pwd/<str:tag>', views.PasswordView.as_view(), name="view_sorted_pwd"),
 
     path('edit_pwd/<int:id>', views.EditPassword.as_view(), name="edit_pwd"),
     path('generate_pwd/', views.GeneratePassword.as_view(), name="generate_pwd"),

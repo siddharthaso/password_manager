@@ -44,10 +44,9 @@ class PasswordView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         myuser = User.objects.get(username = self.request.user)
-        if self.kwargs.get('tag',None):
-            queryset = Passwords.objects.filter(user = myuser) .order_by('tag_id')
-        else:
-            queryset = Passwords.objects.filter(user = myuser) 
+        queryset = Passwords.objects.filter(user = myuser) 
+        if self.kwargs.get('tag'):
+            queryset = queryset.order_by('tag_id')
         return queryset
 
 

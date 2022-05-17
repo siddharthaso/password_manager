@@ -13,19 +13,19 @@ def generate_pwd(l,up,low,num,sym,extra):
     combine_list = []
     temp_pass = ""
 
-    if up==True:
+    if up:
         combine_list += upper
         temp_pass += random.choice(upper)
-    if low==True:
+    if low:
         combine_list += lower
         temp_pass += random.choice(lower)
-    if num==True:
+    if num:
         combine_list += digits
         temp_pass += random.choice(digits)
-    if sym==True:
+    if sym:
         combine_list += symbols
         temp_pass += random.choice(symbols)
-    if extra==True:
+    if extra:
         combine_list += extra_symbols
         temp_pass += random.choice(extra_symbols)
 

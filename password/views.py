@@ -41,7 +41,7 @@ class PasswordView(LoginRequiredMixin, ListView):
     context_object_name = 'passwords'
     template_name = 'password/view_password.html'
     login_url = 'user_profile:login'
-
+    
     def get_queryset(self):
         myuser = User.objects.get(username = self.request.user)
         queryset = Passwords.objects.filter(user = myuser) 
@@ -110,3 +110,78 @@ class PasswordCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         kwargs = super(PasswordCreateView, self).get_form_kwargs()
         kwargs['user_id'] = self.request.user.pk
         return kwargs
+
+
+# from django.http import HttpResponse
+#only for transaction of django.db
+# from django.db import transaction
+
+# @transaction.atomic
+# def transaction_demo(request):
+#     if request.method == 'GET':
+        
+#         p = Passwords.objects.get(id=77)
+#         p.password = "updated password updated"
+#         p.save()
+
+#         # Passwords.objects.filter(id=77).update(password = 'Updated pwd')
+#         # Customer.objects.filter(name='sidd').update(balance = F('balance') - 100)
+
+#         p2 = Passwords.objects.get(id =78)
+#         p2.password = p.password
+#         p2.save()
+#     return HttpResponse("This is just for demo nothing else.")
+
+# atomic(using=None, savepoint=True, durable=False)[source]
+
+# def transaction_demo(request): 
+#     if request.method == 'GET':
+#         try:
+#             with transaction.atomic():
+#                 p = Passwords.objects.get(id=77)
+#                 p.password = "updatepwd pwd"
+#                 p.save()
+
+#                 # Passwords.objects.filter(id=77).update(password = 'Updated pwd')
+#                 # Customer.objects.filter(name='sidd').update(balance = F('balance') - 100)
+
+#                 p2 = Passwords.objects.get(id =78)
+#                 p2.password = p.password
+#                 p2.save()
+#         except:
+#             return HttpResponse("<h1>Error</h1>")
+#         return HttpResponse("<h1>This is just for demo nothing else.</h1>")
+
+#
+
+
+#
+# from django.db.models import Q,F
+
+#---View for Viewing All Password and also for sorted password
+# class PasswordView(LoginRequiredMixin, ListView):
+#     model = Passwords
+#     context_object_name = 'passwords'
+#     template_name = 'password/view_password.html'
+    # login_url = 'user_profile:login'
+    # queryset = Passwords.objects.filter(Q(password__istartswith = 's'))
+
+    # def get_queryset(self):
+    #     myuser = User.objects.get(username = self.request.user)
+        # queryset = Passwords.objects.filter(user = myuser) 
+
+
+        #for select_related  understanding-----------------------------------------------------------------------------
+        # q = Passwords.objects.filter(user = myuser).all() 
+        # for i in q:
+        #     temp =  i.site.site_url
+
+        # q = Passwords.objects.select_related('site').filter(user = myuser).all() 
+        # for i in q:
+        #     temp =  i.site.site_url
+
+        # return q
+
+        # if self.kwargs.get('tag'):
+        #     return self.queryset.order_by('tag_id')
+        # return self.queryset

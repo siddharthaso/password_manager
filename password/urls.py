@@ -14,4 +14,5 @@ urlpatterns = [
     path('generate_pwd/', views.GeneratePassword.as_view(), name="generate_pwd"),
     path('delete_password/<int:pk>', views.PasswordDeleteView.as_view(), name="delete_pwd"),
     path('add_password/', views.PasswordCreateView.as_view(), name="add_pwd"),
+    # path('txn/', views.transaction_demo, name="txn"),
 ]

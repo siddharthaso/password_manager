@@ -1,7 +1,7 @@
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import path
 from . import views
-
+from .views import dowuser
 app_name = 'user_profile'
 urlpatterns = [
     path('', views.HomeView.as_view(), name="home"),
@@ -15,4 +15,6 @@ urlpatterns = [
 
     path('add_site/',views.CreateSiteView.as_view(), name = 'add_site'),
     path('create_tag/',views.TagsCreateView.as_view(), name = 'create_tag'),
+
+    path('dpdf/',dowuser, name = "download_user_list"),
 ]

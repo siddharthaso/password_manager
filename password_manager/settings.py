@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'user_profile',
     'password',
     'general',
+    'django_celery_beat',   
 
     #for Debug toolbar
     # 'debug_toolbar',
@@ -194,29 +195,32 @@ EMAIL_HOST_PASSWORD = os.environ.get('PASSWORD')
 
 #Celery settings------------------------------------------------------------------
 # CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+
+CELERY_BROKER_URL = 'amqp://localhost'
 # CELERY_ACCEPT_CONTENT = ['application/json']
-# # accept_content = ['application/json']
+accept_content = ['application/json']
 
 # CELERY_BROKER_URL = 're://127.0.0.1:6379'
 
 # CELERY_RESULT_SERIALIZER = 'json'
-# # result_serializer = 'json'
+result_serializer = 'json'
 
 # CELERY_TASK_SERIALIZER = 'json'
-# # task_serializer = 'json'
+task_serializer = 'json'
 
 # CELERY_TIMEZONE = "Asia/Kolkata"
-# # timezone = "Asia/Kolkata"
+timezone = "Asia/Kolkata"
 
 
-# CELERY_TASK_TRACK_STARTED = True
-# CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
 
 # CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
 # result_backend = 'redis://127.0.0.1:6379'
+result_backend = 'rpc://localhost'#amqp://guest@localhost//'#djcelery.backends.database:DatabaseBackend'
 
 #CELERY BEAT
-# CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 #TO avoide warnings
 # celery upgrade settings path/to/settings.py

@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -108,3 +109,9 @@ class TagsCreateView(LoginRequiredMixin, CreateView):
         ob = form.save(commit=False)
         ob.user = self.request.user
         return super().form_valid(ob)
+
+from .tasks import download_user
+def dowuser(self):
+    # return download_user()
+    download_user.delay()
+    return HttpResponse( "<h1>Downloaded Successfully</h1>")

@@ -91,10 +91,10 @@ WSGI_APPLICATION = 'password_manager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.postgresql',
-        'NAME':'password_manager',  
-        'USER':'postgres',
-        'PASSWORD':'Siddpgad[]@',
-        'HOST':'localhost',
+        'NAME':'de0srhedlo3ucv',  
+        'USER':'wjmlthtxmzblou',
+        'PASSWORD':'f43da2d1bf18da3b08a4159a417b7490fbec9350378a2cea55ed4915567d87d5',
+        'HOST':'ec2-34-198-186-145.compute-1.amazonaws.com',
         'PORT':'5432',
     }
 }

@@ -8,7 +8,8 @@
 /* #########   Password Generator #######" */
 body{
     background-image: url(https://dmej8g5cpdyqd.cloudfront.net/blog/wp-content/uploads/2013/12/security.jpg);
-    background-image: linear-gradient(rgba(196,221,255,.0),rgba(196,221,255,.5)),url(https://dmej8g5cpdyqd.cloudfront.net/blog/wp-content/uploads/2013/12/security.jpg);
+    background-image: linear-gradient(rgba(196,221,255,.0),rgba(196,221,255,.5));
+    /* ,url(https://dmej8g5cpdyqd.cloudfront.net/blog/wp-content/uploads/2013/12/security.jpg); */
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #C4DDFF;

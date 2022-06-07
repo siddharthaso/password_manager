@@ -135,7 +135,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+# STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'profile_pictures')
 MEDIA_URL = ''
@@ -146,7 +146,7 @@ MEDIA_URL = ''
 
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-STATIC_ROOT=os.path.join(BASE_DIR,'static')
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
 
 '''
 + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

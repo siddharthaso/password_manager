@@ -46,6 +46,8 @@ INSTALLED_APPS = [
 #     # ...
 # ]
 
+# "whitenoise.middleware.WhiteNoiseMiddleware",------------ directly after the Django SecurityMiddleware 
+
 MIDDLEWARE = [
     #debug toolbar
     # The order of MIDDLEWARE is important. You should include the Debug Toolbar middleware as early as possible in the list. However, 
@@ -136,6 +138,8 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 MEDIA_ROOT = os.path.join(BASE_DIR, 'profile_pictures')
 MEDIA_URL = ''
 
+# STATIC_ROOT = BASE_DIR / "staticfiles"
+# ./manage.py collectstatic to put all your static files into STATIC_ROOT   
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

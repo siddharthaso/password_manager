@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .models import Profile
-from django.core.mail import send_mail
+from user_profile.tasks import sending_mail
 from django.conf import settings
 
 @receiver(post_save, sender=User)
@@ -15,7 +15,7 @@ def create_user_profile(sender, instance, created, **kwargs):
         message = f'Hi {instance.username}, thank you for registering in Password manager.'
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [instance.email,]
-        send_mail(subject, message, email_from, recipient_list)
+        sending_mail.delay(subject, message, email_from, recipient_list)
 
 @receiver(post_save, sender=User)   
 def save_user_profile(sender, instance, **kwargs):

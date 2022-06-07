@@ -181,7 +181,8 @@ EMAIL_USE_TLS = True    #Whether to use a Transport Layer Security (secure) conn
 #This is used for explicit TLS connections, generally on port 587. If you are experiencing hanging 
 # connections, see the implicit TLS setting EMAIL_USE_SSL.
 EMAIL_HOST_USER = 'sunsharma492@gmail.com' #'tracy.rippin29@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get('PASSWORD')
+EMAIL_HOST_PASSWORD = 'rfwndwhkwezyidim'
+# os.environ.get('PASSWORD')
 
 #DEBUG toolbar ---------------------------------------------------------------------------------------
 # def show_toolbar(request):

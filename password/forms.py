@@ -31,6 +31,8 @@ class PasswordLogicForm(forms.Form):
                 raise ValidationError("Minimum Length 6 of Password is Required")
             elif(s < 3):                               
                 raise ValidationError("Minimum 3 Choice is Necessary to make Stronger Password")
+            elif leng >= 30:
+                raise ValidationError("Maximum 30 Length of Password can be generated.")
         else:
             raise ValidationError("Length is required")
 

@@ -8,17 +8,7 @@
 /* #########   Password Generator #######" */
 body{
     background-image: url(https://dmej8g5cpdyqd.cloudfront.net/blog/wp-content/uploads/2013/12/security.jpg);
-        /* https://dmej8g5cpdyqd.cloudfront.net/blog/wp-content/uploads/2013/12/security.jpg); */
-
     background-image: linear-gradient(rgba(196,221,255,.0),rgba(196,221,255,.5)),url(https://dmej8g5cpdyqd.cloudfront.net/blog/wp-content/uploads/2013/12/security.jpg);
-
-    /* background-image:   url(https://dmej8g5cpdyqd.cloudfront.net/blog/wp-content/uploads/2013/12/security.jpg);
-    
-    background-image:   url(https://www.greyson.com/wp-content/uploads/2021/02/cybersecurity_greyson_technologies.jpg);
-
-    background-image:   url(https://www.telindus.lu/sites/telindus/files/styles/1920x1080_scale_crop/public/node/event/2017-09/mcs_landing_cabecera2.jpg?itok=6Kloxxbh); */
-    
-
     background-repeat: no-repeat;
     background-size: cover;
     background-color: #C4DDFF;

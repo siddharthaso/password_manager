@@ -145,6 +145,8 @@ MEDIA_URL = ''
 
 
 # STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATIC_ROOT=os.path.join(BASE_DIR,'static')
 
 '''
 + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
@@ -241,6 +243,3 @@ EMAIL_HOST_PASSWORD = os.environ.get('PASSWORD')
 
 #TO avoide warnings
 # celery upgrade settings path/to/settings.py
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
-STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')

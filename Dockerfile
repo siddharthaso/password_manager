@@ -3,7 +3,7 @@ FROM python:3
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE=1
 
-WORKDIR /code
+WORKDIR /app
 
 ADD . /app
 
@@ -13,6 +13,8 @@ RUN pip install -r /app/requirements.txt
 
 COPY . /app
 
+#  CMD ["python3","-m","pip","install","--upgrade","pip"]
+CMD ["python3","manage.py","runserver"]
 
 #  RUN npm install
 
@@ -20,7 +22,6 @@ COPY . /app
 
 #  EXPOSE 8080
 
-#  CMD ["npm","start"]
 
 # FROM creates a layer from the ubuntu:18.04 Docker image.
 # COPY adds files from your Docker client’s current directory.

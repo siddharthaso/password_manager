@@ -12,10 +12,10 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.get_or_create(user=instance)
         subject = 'Welecome to Password Manager'
-        message = f'Hi {instance.username}, thank you for registering in Password manager.'
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [instance.email,]
-        sending_mail.delay(subject, message, email_from, recipient_list)
+        # message = f'Hi {instance.username}, thank you for registering in Password manager.'
+        # email_from = settings.EMAIL_HOST_USER
+        # recipient_list = [instance.email,]
+        # sending_mail.delay(subject, message, email_from, recipient_list)
 
 @receiver(post_save, sender=User)   
 def save_user_profile(sender, instance, **kwargs):

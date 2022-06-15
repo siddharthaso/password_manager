@@ -1,0 +1,55 @@
+version: '3.9'
+
+services:
+  web:                   
+    build: .
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    # expose:
+    #   - "8000"
+    ports:
+      - 8000:8000
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    # links:
+    #   - db:db
+  db:
+    image: postgres
+    ports:
+        - 5432
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data/
+    environment:
+        # POSTGRES_DB: postgres
+        # POSTGRES_NAME: news_db
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: Siddpgad[]@
+# volumes:
+#   postgres_data:
+
+networks:
+      djangonetwork:
+          driver: bridge
+
+# version: '3'
+# services:
+#     web:
+#         build: .
+#         command: python3 manage.py runserver 0.0.0.0:8000
+#         ports: 
+#             - 8000:8000
+#         depends_on:
+#             - db
+#         volumes:
+#             - .:/code
+
+
+#     db:
+#         image: postgres
+#         ports:
+#             - 5432
+#         environment:
+#             # POSTGRES_NAME: news_db
+#             POSTGRES_USER: postgres
+#             POSTGRES_PASSWORD: Simform@123

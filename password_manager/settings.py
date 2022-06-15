@@ -17,11 +17,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ["*"]
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 INSTALLED_APPS = [
@@ -87,10 +87,10 @@ WSGI_APPLICATION = 'password_manager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE':'django.db.backends.postgresql',
-        'NAME':'password_manager',  
+        'NAME':'postgres',  
         'USER':'postgres',
         'PASSWORD':'Siddpgad[]@',
-        'HOST':'localhost',
+        'HOST':'db',
         'PORT':'5432',
     }
 }
